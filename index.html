@@ -87,6 +87,7 @@
             display: flex;
             list-style: none;
             gap: 20px;
+            align-items: center;
         }
 
         nav a {
@@ -118,6 +119,46 @@
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .auth-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-signup {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-logout {
+            background: var(--danger);
+            color: white;
+            border: none;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
         }
 
         /* User Info */
@@ -676,37 +717,6 @@
             color: var(--danger);
         }
 
-        /* Login/Signup Links */
-        .auth-links {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .auth-link {
-            padding: 8px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .auth-link.signup {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .auth-link.login {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .auth-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
-        }
-
         /* User Dashboard */
         .dashboard-container {
             background: rgba(20, 20, 30, 0.7);
@@ -730,6 +740,27 @@
             background: rgba(10, 10, 15, 0.8);
             border-radius: 10px;
             padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .ticket-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Login Required Message */
+        .login-required {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .login-required i {
+            font-size: 4rem;
+            color: var(--accent);
             margin-bottom: 20px;
         }
 
@@ -774,6 +805,16 @@
                 gap: 20px;
             }
 
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .auth-btn {
+                width: 100%;
+                text-align: center;
+            }
+
             .hero h2 {
                 font-size: 2.3rem;
             }
@@ -784,17 +825,6 @@
 
             .ticket-form-container {
                 padding: 30px 20px;
-            }
-
-            .auth-links {
-                flex-direction: column;
-                gap: 10px;
-                width: 100%;
-            }
-
-            .auth-link {
-                width: 100%;
-                text-align: center;
             }
         }
 
@@ -842,20 +872,26 @@
                     <li><a href="#recrutement">Recrutement</a></li>
                     <li><a href="#ticket">Postuler</a></li>
                     <li><a href="#equipe">Équipe</a></li>
-                    <div class="auth-links" id="authLinks">
-                        <a href="#" class="auth-link signup" id="signupLink">Inscription</a>
-                        <a href="#" class="auth-link login" id="loginLink">Connexion</a>
-                    </div>
-                    <div class="user-info" id="userInfo" style="display: none;">
-                        <i class="fas fa-user"></i>
-                        <span id="userName"></span>
-                        <button onclick="App.logout()" style="margin-left: 10px; padding: 5px 10px; background: var(--danger); border: none; border-radius: 5px; color: white; cursor: pointer;">
-                            Déconnexion
-                        </button>
-                    </div>
-                    <li><a href="#" id="adminLoginLink" class="nav-button" style="background: linear-gradient(to right, var(--warning), var(--danger));">
-                        <i class="fas fa-user-shield"></i> Admin
-                    </a></li>
+                    <li id="userNavItem" style="display: none;">
+                        <div class="user-info">
+                            <i class="fas fa-user"></i>
+                            <span id="userName"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="auth-buttons" id="authButtons">
+                            <button class="auth-btn btn-signup" id="signupBtn">Inscription</button>
+                            <button class="auth-btn btn-login" id="loginBtn">Connexion</button>
+                        </div>
+                        <div id="userControls" style="display: none;">
+                            <button class="auth-btn btn-logout" onclick="App.logout()">Déconnexion</button>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" id="adminLoginLink" class="nav-button" style="background: linear-gradient(to right, var(--warning), var(--danger));">
+                            <i class="fas fa-user-shield"></i> Admin
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -939,16 +975,33 @@
                 <p>Soumettez votre candidature pour rejoindre notre équipe de développement</p>
             </div>
             
-            <div class="ticket-form-container" id="ticketFormContainer">
-                <div id="loginRequiredMessage" style="text-align: center; padding: 40px;">
-                    <i class="fas fa-lock" style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;"></i>
-                    <h3 style="margin-bottom: 15px;">Connexion requise</h3>
-                    <p style="color: #ccc; margin-bottom: 30px;">Vous devez être connecté pour soumettre une candidature</p>
-                    <a href="#" class="auth-link signup" id="signupFromForm">Créer un compte</a>
-                    <p style="margin-top: 20px; color: #aaa;">Déjà un compte ? <a href="#" id="loginFromForm" style="color: var(--accent);">Se connecter</a></p>
+            <!-- Login Required Message -->
+            <div id="loginRequiredMessage" class="ticket-form-container login-required">
+                <i class="fas fa-lock"></i>
+                <h3>Connexion requise</h3>
+                <p style="color: #ccc; margin-bottom: 30px;">Vous devez être connecté pour soumettre une candidature</p>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <button class="auth-btn btn-signup" id="signupFromForm">Créer un compte</button>
+                    <button class="auth-btn btn-login" id="loginFromForm">Se connecter</button>
                 </div>
-                
-                <form id="recruitmentForm" style="display: none;">
+            </div>
+            
+            <!-- User Dashboard -->
+            <div id="userDashboard" class="dashboard-container" style="display: none;">
+                <div class="dashboard-header">
+                    <h3>Mes Candidatures</h3>
+                    <button class="submit-btn" onclick="App.showTicketForm()" style="width: auto; padding: 10px 20px;">
+                        <i class="fas fa-plus"></i> Nouvelle Candidature
+                    </button>
+                </div>
+                <div id="userTicketsList">
+                    <!-- Les tickets de l'utilisateur seront affichés ici -->
+                </div>
+            </div>
+            
+            <!-- Ticket Form -->
+            <div id="ticketFormContainer" class="ticket-form-container" style="display: none;">
+                <form id="recruitmentForm">
                     <div class="form-group">
                         <label for="fullName">Nom Complet *</label>
                         <input type="text" id="fullName" class="form-control" required>
@@ -980,23 +1033,10 @@
                     </div>
                     
                     <button type="submit" class="submit-btn">Soumettre ma candidature</button>
-                </form>
-            </div>
-
-            <!-- User Dashboard -->
-            <div class="dashboard-container" id="userDashboard" style="display: none;">
-                <div class="dashboard-header">
-                    <h3>Mes Candidatures</h3>
-                    <button class="submit-btn" onclick="App.showTicketForm()" style="width: auto; padding: 10px 20px;">
-                        <i class="fas fa-plus"></i> Nouvelle Candidature
+                    <button type="button" class="submit-btn" onclick="App.showDashboard()" style="background: var(--warning); margin-top: 10px;">
+                        Annuler
                     </button>
-                </div>
-                <div id="userTicketsList">
-                    <!-- Les tickets de l'utilisateur seront affichés ici -->
-                    <p class="text-center" style="color: #aaa; padding: 20px;">
-                        Vous n'avez pas encore soumis de candidature.
-                    </p>
-                </div>
+                </form>
             </div>
         </div>
     </section>
@@ -1075,16 +1115,4 @@
                         <li><i class="fas fa-envelope"></i> SpectraProCorp@proton.me</li>
                         <li><i class="fab fa-discord"></i> https://discord.gg/X736BTR4fu</li>
                         <li><i class="fas fa-globe"></i> www.spectracorp.netlify.app</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2026 Spectra Corp Minecraft eSport Team. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Success Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal
+                    </ul
