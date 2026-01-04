@@ -86,7 +86,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 20px;
         }
 
         nav a {
@@ -118,6 +118,15 @@
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        /* User Info */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+            font-weight: 600;
         }
 
         /* Hero Section */
@@ -524,7 +533,7 @@
             border-bottom-right-radius: 3px;
         }
 
-        .message.candidate {
+        .message.user {
             background: rgba(37, 117, 252, 0.3);
             margin-right: auto;
             border-bottom-left-radius: 3px;
@@ -667,6 +676,63 @@
             color: var(--danger);
         }
 
+        /* Login/Signup Links */
+        .auth-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .auth-link {
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .auth-link.signup {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .auth-link.login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .auth-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+        }
+
+        /* User Dashboard */
+        .dashboard-container {
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(106, 17, 203, 0.2);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(106, 17, 203, 0.3);
+        }
+
+        .user-ticket {
+            background: rgba(10, 10, 15, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
             nav ul {
@@ -719,6 +785,17 @@
             .ticket-form-container {
                 padding: 30px 20px;
             }
+
+            .auth-links {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .auth-link {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         @media (max-width: 576px) {
@@ -765,6 +842,17 @@
                     <li><a href="#recrutement">Recrutement</a></li>
                     <li><a href="#ticket">Postuler</a></li>
                     <li><a href="#equipe">Équipe</a></li>
+                    <div class="auth-links" id="authLinks">
+                        <a href="#" class="auth-link signup" id="signupLink">Inscription</a>
+                        <a href="#" class="auth-link login" id="loginLink">Connexion</a>
+                    </div>
+                    <div class="user-info" id="userInfo" style="display: none;">
+                        <i class="fas fa-user"></i>
+                        <span id="userName"></span>
+                        <button onclick="App.logout()" style="margin-left: 10px; padding: 5px 10px; background: var(--danger); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                            Déconnexion
+                        </button>
+                    </div>
                     <li><a href="#" id="adminLoginLink" class="nav-button" style="background: linear-gradient(to right, var(--warning), var(--danger));">
                         <i class="fas fa-user-shield"></i> Admin
                     </a></li>
@@ -851,8 +939,16 @@
                 <p>Soumettez votre candidature pour rejoindre notre équipe de développement</p>
             </div>
             
-            <div class="ticket-form-container">
-                <form id="recruitmentForm">
+            <div class="ticket-form-container" id="ticketFormContainer">
+                <div id="loginRequiredMessage" style="text-align: center; padding: 40px;">
+                    <i class="fas fa-lock" style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 15px;">Connexion requise</h3>
+                    <p style="color: #ccc; margin-bottom: 30px;">Vous devez être connecté pour soumettre une candidature</p>
+                    <a href="#" class="auth-link signup" id="signupFromForm">Créer un compte</a>
+                    <p style="margin-top: 20px; color: #aaa;">Déjà un compte ? <a href="#" id="loginFromForm" style="color: var(--accent);">Se connecter</a></p>
+                </div>
+                
+                <form id="recruitmentForm" style="display: none;">
                     <div class="form-group">
                         <label for="fullName">Nom Complet *</label>
                         <input type="text" id="fullName" class="form-control" required>
@@ -885,6 +981,22 @@
                     
                     <button type="submit" class="submit-btn">Soumettre ma candidature</button>
                 </form>
+            </div>
+
+            <!-- User Dashboard -->
+            <div class="dashboard-container" id="userDashboard" style="display: none;">
+                <div class="dashboard-header">
+                    <h3>Mes Candidatures</h3>
+                    <button class="submit-btn" onclick="App.showTicketForm()" style="width: auto; padding: 10px 20px;">
+                        <i class="fas fa-plus"></i> Nouvelle Candidature
+                    </button>
+                </div>
+                <div id="userTicketsList">
+                    <!-- Les tickets de l'utilisateur seront affichés ici -->
+                    <p class="text-center" style="color: #aaa; padding: 20px;">
+                        Vous n'avez pas encore soumis de candidature.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -975,81 +1087,4 @@
 
     <!-- Success Modal -->
     <div class="modal" id="successModal">
-        <div class="modal-content">
-            <div class="close-modal" id="closeModal">&times;</div>
-            <div class="modal-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3>Candidature envoyée !</h3>
-            <p>Votre formulaire de recrutement a été soumis avec succès. Notre équipe examinera votre candidature et vous contactera via Discord dans les 7 à 14 jours.</p>
-            <p>Merci pour votre intérêt à rejoindre la Spectra Corp !</p>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <div class="close-modal" id="closeLoginModal">&times;</div>
-            <div class="modal-icon">
-                <i class="fas fa-user-shield"></i>
-            </div>
-            <h3>Connexion Admin Spectra Corp</h3>
-            <form id="adminLoginForm">
-                <div class="form-group">
-                    <label for="adminEmail">Email Admin</label>
-                    <input type="email" id="adminEmail" class="form-control" required value="SpectraProCorp@proton.me">
-                </div>
-                
-                <div class="form-group">
-                    <label for="adminPassword">Mot de passe</label>
-                    <input type="password" id="adminPassword" class="form-control" required value="SpectraCorp@#RTX@#8080!$">
-                </div>
-                
-                <button type="submit" class="submit-btn">Se connecter</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Admin Panel Modal -->
-    <div class="modal" id="adminPanelModal">
-        <div class="modal-content" style="max-width: 900px;">
-            <div class="close-modal" id="closeAdminPanel">&times;</div>
-            <div class="modal-icon">
-                <i class="fas fa-tachometer-alt"></i>
-            </div>
-            <h3>Panel d'Administration Spectra Corp</h3>
-            <p class="text-center" style="margin-bottom: 30px;">
-                Connecté en tant que: <span id="adminNameDisplay" style="color: var(--accent); font-weight: bold;">Administrateur Principal</span>
-                <button id="logoutBtn" style="margin-left: 15px; padding: 5px 15px; background: var(--danger); border: none; border-radius: 5px; color: white; cursor: pointer;">
-                    Déconnexion
-                </button>
-            </p>
-            
-            <div class="admin-tabs">
-                <div class="tab-buttons" style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 1px solid rgba(106, 17, 203, 0.3); flex-wrap: wrap;">
-                    <button class="tab-btn active" data-tab="candidates">Candidatures (<span id="candidateCount">0</span>)</button>
-                    <button class="tab-btn" data-tab="chat">Discussion Ticket</button>
-                    <button class="tab-btn" data-tab="stats">Statistiques</button>
-                </div>
-                
-                <div class="tab-content">
-                    <div id="candidatesTab" class="tab-pane active">
-                        <div class="candidates-list" id="candidatesList" style="max-height: 400px; overflow-y: auto;">
-                            <!-- Les candidatures seront ajoutées ici dynamiquement -->
-                            <p class="text-center" style="color: #aaa; padding: 20px;">
-                                Aucune candidature pour le moment.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div id="chatTab" class="tab-pane" style="display: none;">
-                        <div id="chatInfo" style="text-align: center; color: #aaa; padding: 20px;">
-                            <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                            <p>Sélectionnez une candidature pour commencer la discussion</p>
-                        </div>
-                        <div id="chatContainer" style="display: none;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(106, 17, 203, 0.3);">
-                                <h4 id="chatCandidateName" style="color: white;"></h4>
-                                <div>
-                                    <span id="chatCandidateStatus" class="candidate-status status-pending"></span>
-                                    <button id="acceptCandidateBtn" class="submit-btn" style="width: auto; padding: 8px 15px; margin-left: 
+        <div class="modal
