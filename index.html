@@ -1109,4 +1109,930 @@
                     </ul>
                 </div>
                 
-                <div class="footer
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> SpectraProCorp@proton.me</li>
+                        <li><i class="fab fa-discord"></i> https://discord.gg/X736BTR4fu</li>
+                        <li><i class="fas fa-globe"></i> www.spectracorp.netlify.app</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Spectra Corp Minecraft eSport Team. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="close-modal" id="closeModal">&times;</div>
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Candidature envoyée !</h3>
+            <p>Votre formulaire de recrutement a été soumis avec succès. Notre équipe examinera votre candidature et vous contactera via Discord dans les 7 à 14 jours.</p>
+            <p>Merci pour votre intérêt à rejoindre la Spectra Corp !</p>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="close-modal" id="closeLoginModal">&times;</div>
+            <div class="modal-icon">
+                <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <h3>Connexion</h3>
+            <form id="userLoginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Mot de passe</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">Se connecter</button>
+            </form>
+            <p class="text-center" style="margin-top: 20px;">
+                Pas encore de compte ? <a href="#" id="switchToSignup">S'inscrire</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="close-modal" id="closeSignupModal">&times;</div>
+            <div class="modal-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h3>Inscription</h3>
+            <form id="userSignupForm">
+                <div class="form-group">
+                    <label for="signupName">Nom complet</label>
+                    <input type="text" id="signupName" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupPassword">Mot de passe (min. 6 caractères)</label>
+                    <input type="password" id="signupPassword" class="form-control" minlength="6" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirmer le mot de passe</label>
+                    <input type="password" id="signupConfirmPassword" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">S'inscrire</button>
+            </form>
+            <p class="text-center" style="margin-top: 20px;">
+                Déjà un compte ? <a href="#" id="switchToLogin">Se connecter</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <div class="close-modal" id="closeAdminLoginModal">&times;</div>
+            <div class="modal-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h3>Connexion Admin</h3>
+            <p style="color: #aaa; text-align: center; margin-bottom: 20px;">
+                Accès réservé aux administrateurs Spectra Corp
+            </p>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminEmail">Email Admin</label>
+                    <input type="email" id="adminEmail" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adminPassword">Mot de passe Admin</label>
+                    <input type="password" id="adminPassword" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">Se connecter en Admin</button>
+            </form>
+            <p class="text-center" style="margin-top: 20px; color: #777; font-size: 0.9rem;">
+                <i class="fas fa-info-circle"></i> Accès réservé au personnel autorisé
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div class="modal" id="adminPanelModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="close-modal" id="closeAdminPanel">&times;</div>
+            <div class="modal-icon">
+                <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h3>Panel d'Administration Spectra Corp</h3>
+            <p class="text-center" style="margin-bottom: 30px;">
+                Connecté en tant que: <span id="adminNameDisplay" style="color: var(--accent); font-weight: bold;">Administrateur</span>
+                <button id="adminLogoutBtn" style="margin-left: 15px; padding: 5px 15px; background: var(--danger); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                    Déconnexion
+                </button>
+            </p>
+            
+            <div class="admin-tabs">
+                <div class="tab-buttons" style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 1px solid rgba(106, 17, 203, 0.3); flex-wrap: wrap;">
+                    <button class="tab-btn active" data-tab="candidates">Candidatures (<span id="candidateCount">0</span>)</button>
+                    <button class="tab-btn" data-tab="chat">Discussion Ticket</button>
+                    <button class="tab-btn" data-tab="stats">Statistiques</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div id="candidatesTab" class="tab-pane active">
+                        <div class="candidates-list" id="candidatesList" style="max-height: 400px; overflow-y: auto;">
+                            <!-- Les candidatures seront ajoutées ici dynamiquement -->
+                            <p class="text-center" style="color: #aaa; padding: 20px;">
+                                Aucune candidature pour le moment.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="chatTab" class="tab-pane" style="display: none;">
+                        <div id="chatInfo" style="text-align: center; color: #aaa; padding: 20px;">
+                            <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                            <p>Sélectionnez une candidature pour commencer la discussion</p>
+                        </div>
+                        <div id="chatContainer" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(106, 17, 203, 0.3);">
+                                <h4 id="chatCandidateName" style="color: white;"></h4>
+                                <div>
+                                    <span id="chatCandidateStatus" class="candidate-status status-pending"></span>
+                                    <button id="acceptCandidateBtn" class="submit-btn" style="width: auto; padding: 8px 15px; margin-left: 10px; background: var(--success);">
+                                        <i class="fas fa-check"></i> Accepter
+                                    </button>
+                                    <button id="rejectCandidateBtn" class="submit-btn" style="width: auto; padding: 8px 15px; background: var(--danger);">
+                                        <i class="fas fa-times"></i> Refuser
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chat-container" id="messageContainer">
+                                <!-- Messages de chat seront affichés ici -->
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="messageInput" placeholder="Tapez votre message...">
+                                <button id="sendMessageBtn">Envoyer</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="statsTab" class="tab-pane" style="display: none;">
+                        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                            <div class="stat-card" style="background: rgba(20, 20, 30, 0.7); padding: 20px; border-radius: 10px;">
+                                <h4 style="margin-bottom: 10px;">Total Candidatures</h4>
+                                <div class="stat-number" id="totalCandidates" style="font-size: 2rem; color: var(--accent);">0</div>
+                            </div>
+                            <div class="stat-card" style="background: rgba(20, 20, 30, 0.7); padding: 20px; border-radius: 10px;">
+                                <h4 style="margin-bottom: 10px;">Nouvelles (7 jours)</h4>
+                                <div class="stat-number" id="newCandidates" style="font-size: 2rem; color: var(--warning);">0</div>
+                            </div>
+                            <div class="stat-card" style="background: rgba(20, 20, 30, 0.7); padding: 20px; border-radius: 10px; grid-column: span 2;">
+                                <h4 style="margin-bottom: 10px;">Informations de connexion Admin</h4>
+                                <div style="color: #ccc; font-size: 0.9rem;">
+                                    <p><strong>Email:</strong> SpectraProCorp@proton.me</p>
+                                    <p><strong>Mot de passe:</strong> SpectraCorp@#RTX@#8080!$</p>
+                                    <p style="color: var(--warning); margin-top: 10px;">
+                                        <i class="fas fa-exclamation-triangle"></i> Ces identifiants sont préconfigurés
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application principale
+        const App = {
+            // Données
+            data: {
+                currentUser: null,
+                currentAdmin: null,
+                users: JSON.parse(localStorage.getItem('spectra_users')) || [],
+                adminUsers: JSON.parse(localStorage.getItem('spectra_admins')) || [
+                    {
+                        id: 1,
+                        email: "SpectraProCorp@proton.me",
+                        password: "SpectraCorp@#RTX@#8080!$",
+                        name: "Admin Principal"
+                    }
+                ],
+                tickets: JSON.parse(localStorage.getItem('spectra_tickets')) || [],
+                messages: JSON.parse(localStorage.getItem('spectra_messages')) || [],
+                currentTicketId: null
+            },
+
+            // Initialisation
+            init: function() {
+                this.setupEventListeners();
+                this.checkUserSession();
+                this.checkAdminSession();
+                this.updateUI();
+            },
+
+            // Vérifier session utilisateur
+            checkUserSession: function() {
+                const savedUser = localStorage.getItem('spectra_current_user');
+                if (savedUser) {
+                    this.data.currentUser = JSON.parse(savedUser);
+                }
+            },
+
+            // Vérifier session admin
+            checkAdminSession: function() {
+                const savedAdmin = localStorage.getItem('spectra_current_admin');
+                if (savedAdmin) {
+                    this.data.currentAdmin = JSON.parse(savedAdmin);
+                }
+            },
+
+            // Mettre à jour l'UI
+            updateUI: function() {
+                const authButtons = document.getElementById('authButtons');
+                const userControls = document.getElementById('userControls');
+                const userNavItem = document.getElementById('userNavItem');
+                const userName = document.getElementById('userName');
+                const loginRequiredMessage = document.getElementById('loginRequiredMessage');
+                const userDashboard = document.getElementById('userDashboard');
+                const adminLoginLink = document.getElementById('adminLoginLink');
+                
+                // Gestion utilisateur
+                if (this.data.currentUser) {
+                    authButtons.style.display = 'none';
+                    userControls.style.display = 'block';
+                    userNavItem.style.display = 'block';
+                    userName.textContent = this.data.currentUser.name;
+                    
+                    // Afficher dashboard
+                    loginRequiredMessage.style.display = 'none';
+                    userDashboard.style.display = 'block';
+                    this.loadUserTickets();
+                } else {
+                    authButtons.style.display = 'flex';
+                    userControls.style.display = 'none';
+                    userNavItem.style.display = 'none';
+                    
+                    // Afficher message login required
+                    loginRequiredMessage.style.display = 'block';
+                    userDashboard.style.display = 'none';
+                }
+                
+                // Gestion admin
+                if (this.data.currentAdmin) {
+                    adminLoginLink.innerHTML = '<i class="fas fa-user-shield"></i> Admin Panel';
+                    adminLoginLink.style.background = 'linear-gradient(to right, var(--success), var(--accent))';
+                } else {
+                    adminLoginLink.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
+                    adminLoginLink.style.background = 'linear-gradient(to right, var(--warning), var(--danger))';
+                }
+            },
+
+            // Configuration des événements
+            setupEventListeners: function() {
+                // Mobile menu
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const mainNav = document.getElementById('mainNav');
+                
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.addEventListener('click', () => {
+                        mainNav.classList.toggle('active');
+                        mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                            ? '<i class="fas fa-times"></i>' 
+                            : '<i class="fas fa-bars"></i>';
+                    });
+                }
+                
+                // Fermer menu mobile au clic sur un lien
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mainNav.classList.remove('active');
+                        if (mobileMenuBtn) {
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                    });
+                });
+
+                // Navigation smooth
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        if (this.getAttribute('href') === '#') return;
+                        
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            e.preventDefault();
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                // Boutons d'inscription
+                document.getElementById('signupBtn')?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.openSignupModal();
+                });
+                
+                document.getElementById('signupFromFormBtn')?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.openSignupModal();
+                });
+
+                // Boutons de connexion
+                document.getElementById('loginBtn')?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.openLoginModal();
+                });
+                
+                document.getElementById('loginFromFormBtn')?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.openLoginModal();
+                });
+
+                // Bouton déconnexion
+                document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.logout();
+                });
+
+                // Bouton admin
+                document.getElementById('adminLoginLink')?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (this.data.currentAdmin) {
+                        this.openAdminPanel();
+                    } else {
+                        this.openAdminLoginModal();
+                    }
+                });
+
+                // Formulaire d'inscription
+                document.getElementById('userSignupForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleSignup();
+                });
+
+                // Formulaire de connexion
+                document.getElementById('userLoginForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
+
+                // Formulaire admin
+                document.getElementById('adminLoginForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleAdminLogin();
+                });
+
+                // Formulaire de candidature
+                document.getElementById('recruitmentForm')?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleTicketSubmission();
+                });
+
+                // Switch entre login/signup
+                document.getElementById('switchToSignup')?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.closeModal('loginModal');
+                    this.openSignupModal();
+                });
+                
+                document.getElementById('switchToLogin')?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.closeModal('signupModal');
+                    this.openLoginModal();
+                });
+
+                // Fermer modals
+                document.getElementById('closeModal')?.addEventListener('click', () => {
+                    this.closeModal('successModal');
+                });
+                
+                document.getElementById('closeLoginModal')?.addEventListener('click', () => {
+                    this.closeModal('loginModal');
+                });
+                
+                document.getElementById('closeSignupModal')?.addEventListener('click', () => {
+                    this.closeModal('signupModal');
+                });
+                
+                document.getElementById('closeAdminLoginModal')?.addEventListener('click', () => {
+                    this.closeModal('adminLoginModal');
+                });
+                
+                document.getElementById('closeAdminPanel')?.addEventListener('click', () => {
+                    this.closeModal('adminPanelModal');
+                });
+
+                // Déconnexion admin
+                document.getElementById('adminLogoutBtn')?.addEventListener('click', () => {
+                    this.handleAdminLogout();
+                });
+
+                // Fermer modals au clic extérieur
+                window.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal')) {
+                        e.target.style.display = 'none';
+                    }
+                });
+
+                // Tabs admin
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const tabId = btn.getAttribute('data-tab');
+                        this.switchAdminTab(tabId, btn);
+                    });
+                });
+
+                // Envoyer message
+                document.getElementById('sendMessageBtn')?.addEventListener('click', () => {
+                    this.sendMessage();
+                });
+
+                // Accepter/refuser candidat
+                document.getElementById('acceptCandidateBtn')?.addEventListener('click', () => {
+                    this.updateCandidateStatus('accepted');
+                });
+                
+                document.getElementById('rejectCandidateBtn')?.addEventListener('click', () => {
+                    this.updateCandidateStatus('rejected');
+                });
+            },
+
+            // Ouvrir modal inscription
+            openSignupModal: function() {
+                this.closeAllModals();
+                document.getElementById('signupModal').style.display = 'flex';
+                document.getElementById('signupName').focus();
+            },
+
+            // Ouvrir modal connexion
+            openLoginModal: function() {
+                this.closeAllModals();
+                document.getElementById('loginModal').style.display = 'flex';
+                document.getElementById('loginEmail').focus();
+            },
+
+            // Ouvrir modal admin
+            openAdminLoginModal: function() {
+                this.closeAllModals();
+                document.getElementById('adminLoginModal').style.display = 'flex';
+                document.getElementById('adminEmail').value = 'SpectraProCorp@proton.me';
+                document.getElementById('adminPassword').value = 'SpectraCorp@#RTX@#8080!$';
+                document.getElementById('adminEmail').focus();
+            },
+
+            // Fermer modal
+            closeModal: function(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+            },
+
+            // Fermer tous les modals
+            closeAllModals: function() {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            },
+
+            // Gestion inscription
+            handleSignup: function() {
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                
+                // Validation
+                if (password !== confirmPassword) {
+                    alert('Les mots de passe ne correspondent pas !');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    alert('Le mot de passe doit faire au moins 6 caractères !');
+                    return;
+                }
+                
+                // Vérifier si l'email existe déjà
+                if (this.data.users.find(u => u.email === email)) {
+                    alert('Cet email est déjà utilisé !');
+                    return;
+                }
+                
+                // Créer utilisateur
+                const newUser = {
+                    id: Date.now(),
+                    name: name,
+                    email: email,
+                    password: password,
+                    createdAt: new Date().toISOString()
+                };
+                
+                this.data.users.push(newUser);
+                localStorage.setItem('spectra_users', JSON.stringify(this.data.users));
+                
+                // Connecter automatiquement
+                this.data.currentUser = newUser;
+                localStorage.setItem('spectra_current_user', JSON.stringify(newUser));
+                
+                // Fermer modal et mettre à jour UI
+                this.closeModal('signupModal');
+                this.updateUI();
+                
+                alert('Compte créé avec succès ! Bienvenue ' + name + ' !');
+            },
+
+            // Gestion connexion
+            handleLogin: function() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Trouver l'utilisateur
+                const user = this.data.users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    this.data.currentUser = user;
+                    localStorage.setItem('spectra_current_user', JSON.stringify(user));
+                    
+                    this.closeModal('loginModal');
+                    this.updateUI();
+                    
+                    alert('Connexion réussie ! Bienvenue ' + user.name + ' !');
+                } else {
+                    alert('Email ou mot de passe incorrect !');
+                }
+            },
+
+            // Gestion connexion admin
+            handleAdminLogin: function() {
+                const email = document.getElementById('adminEmail').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                // Trouver l'admin
+                const admin = this.data.adminUsers.find(a => a.email === email && a.password === password);
+                
+                if (admin) {
+                    this.data.currentAdmin = admin;
+                    localStorage.setItem('spectra_current_admin', JSON.stringify(admin));
+                    
+                    this.closeModal('adminLoginModal');
+                    this.openAdminPanel();
+                    
+                    alert('Connexion admin réussie !');
+                } else {
+                    alert('Identifiants admin incorrects !');
+                }
+            },
+
+            // Déconnexion
+            logout: function() {
+                this.data.currentUser = null;
+                localStorage.removeItem('spectra_current_user');
+                this.updateUI();
+                alert('Déconnexion réussie !');
+            },
+
+            // Déconnexion admin
+            handleAdminLogout: function() {
+                this.data.currentAdmin = null;
+                localStorage.removeItem('spectra_current_admin');
+                this.closeModal('adminPanelModal');
+                this.updateUI();
+                alert('Déconnexion admin réussie !');
+            },
+
+            // Afficher formulaire de ticket
+            showTicketForm: function() {
+                document.getElementById('userDashboard').style.display = 'none';
+                document.getElementById('ticketFormContainer').style.display = 'block';
+                
+                // Pré-remplir les champs
+                if (this.data.currentUser) {
+                    document.getElementById('fullName').value = this.data.currentUser.name;
+                    document.getElementById('email').value = this.data.currentUser.email;
+                }
+            },
+
+            // Afficher dashboard
+            showDashboard: function() {
+                document.getElementById('ticketFormContainer').style.display = 'none';
+                document.getElementById('userDashboard').style.display = 'block';
+            },
+
+            // Gestion soumission ticket
+            handleTicketSubmission: function() {
+                if (!this.data.currentUser) {
+                    alert('Vous devez être connecté !');
+                    return;
+                }
+                
+                const ticket = {
+                    id: Date.now(),
+                    userId: this.data.currentUser.id,
+                    userName: this.data.currentUser.name,
+                    userEmail: this.data.currentUser.email,
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    discord: document.getElementById('discord').value,
+                    experience: document.getElementById('experience').value,
+                    portfolio: document.getElementById('portfolio').value,
+                    motivation: document.getElementById('motivation').value,
+                    status: 'pending',
+                    date: new Date().toISOString(),
+                    messages: []
+                };
+                
+                this.data.tickets.push(ticket);
+                localStorage.setItem('spectra_tickets', JSON.stringify(this.data.tickets));
+                
+                // Réinitialiser le formulaire
+                document.getElementById('recruitmentForm').reset();
+                
+                // Afficher succès
+                this.showDashboard();
+                this.loadUserTickets();
+                
+                // Afficher modal de succès
+                document.getElementById('successModal').style.display = 'flex';
+            },
+
+            // Charger les tickets de l'utilisateur
+            loadUserTickets: function() {
+                if (!this.data.currentUser) return;
+                
+                const userTicketsList = document.getElementById('userTicketsList');
+                const userTickets = this.data.tickets.filter(t => t.userId === this.data.currentUser.id);
+                
+                if (userTickets.length === 0) {
+                    userTicketsList.innerHTML = '<p class="text-center" style="color: #aaa; padding: 20px;">Vous n\'avez pas encore soumis de candidature.</p>';
+                    return;
+                }
+                
+                // Trier par date (plus récent en premier)
+                userTickets.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                userTicketsList.innerHTML = '';
+                userTickets.forEach(ticket => {
+                    const statusClass = this.getStatusClass(ticket.status);
+                    const statusText = this.getStatusText(ticket.status);
+                    
+                    const ticketElement = document.createElement('div');
+                    ticketElement.className = 'user-ticket';
+                    ticketElement.innerHTML = `
+                        <div class="ticket-status ${statusClass}">${statusText}</div>
+                        <h4 style="margin-bottom: 10px;">Candidature du ${new Date(ticket.date).toLocaleDateString('fr-FR')}</h4>
+                        <p><strong>Discord:</strong> ${ticket.discord}</p>
+                        <p><strong>Expérience:</strong> ${ticket.experience} an(s)</p>
+                        <p style="margin-top: 10px; color: #ccc;">${ticket.motivation.substring(0, 100)}${ticket.motivation.length > 100 ? '...' : ''}</p>
+                    `;
+                    userTicketsList.appendChild(ticketElement);
+                });
+            },
+
+            // Ouvrir panel admin
+            openAdminPanel: function() {
+                this.closeAllModals();
+                document.getElementById('adminPanelModal').style.display = 'flex';
+                this.loadCandidates();
+                this.updateAdminStats();
+            },
+
+            // Charger les candidatures dans le panel admin
+            loadCandidates: function() {
+                const candidatesList = document.getElementById('candidatesList');
+                const candidateCount = document.getElementById('candidateCount');
+                
+                if (this.data.tickets.length === 0) {
+                    candidatesList.innerHTML = '<p class="text-center" style="color: #aaa; padding: 20px;">Aucune candidature pour le moment.</p>';
+                    candidateCount.textContent = '0';
+                    return;
+                }
+                
+                // Trier par date (plus récent en premier)
+                const sortedTickets = [...this.data.tickets].sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                candidateCount.textContent = sortedTickets.length;
+                candidatesList.innerHTML = '';
+                
+                sortedTickets.forEach(ticket => {
+                    const statusClass = this.getStatusClass(ticket.status);
+                    const statusText = this.getStatusText(ticket.status);
+                    
+                    const candidateItem = document.createElement('div');
+                    candidateItem.className = 'candidate-item';
+                    candidateItem.dataset.ticketId = ticket.id;
+                    candidateItem.innerHTML = `
+                        <div class="candidate-header">
+                            <div class="candidate-name">${ticket.fullName}</div>
+                            <div class="candidate-date">${new Date(ticket.date).toLocaleDateString('fr-FR')}</div>
+                        </div>
+                        <div class="candidate-discord">
+                            <i class="fab fa-discord"></i> ${ticket.discord}
+                        </div>
+                        <div class="candidate-exp">
+                            <i class="fas fa-code"></i> ${ticket.experience} an(s) d'expérience
+                        </div>
+                        <div style="margin-top: 10px; color: #ccc; font-size: 0.9rem;">
+                            ${ticket.motivation.substring(0, 100)}${ticket.motivation.length > 100 ? '...' : ''}
+                        </div>
+                        <div class="candidate-status ${statusClass}">${statusText}</div>
+                    `;
+                    
+                    candidateItem.addEventListener('click', () => {
+                        this.openChat(ticket.id);
+                    });
+                    
+                    candidatesList.appendChild(candidateItem);
+                });
+            },
+
+            // Ouvrir chat avec un candidat
+            openChat: function(ticketId) {
+                this.data.currentTicketId = ticketId;
+                const ticket = this.data.tickets.find(t => t.id === ticketId);
+                
+                if (!ticket) return;
+                
+                // Afficher info candidat
+                document.getElementById('chatCandidateName').textContent = ticket.fullName;
+                document.getElementById('chatCandidateStatus').textContent = this.getStatusText(ticket.status);
+                document.getElementById('chatCandidateStatus').className = `candidate-status ${this.getStatusClass(ticket.status)}`;
+                
+                // Afficher container chat
+                document.getElementById('chatInfo').style.display = 'none';
+                document.getElementById('chatContainer').style.display = 'block';
+                
+                // Charger les messages
+                this.loadMessages(ticketId);
+                
+                // Passer à l'onglet chat
+                this.switchAdminTab('chat', document.querySelector('.tab-btn[data-tab="chat"]'));
+            },
+
+            // Charger les messages
+            loadMessages: function(ticketId) {
+                const messageContainer = document.getElementById('messageContainer');
+                const ticketMessages = this.data.messages.filter(m => m.ticketId === ticketId);
+                
+                messageContainer.innerHTML = '';
+                
+                if (ticketMessages.length === 0) {
+                    messageContainer.innerHTML = '<p style="text-align: center; color: #aaa; padding: 20px;">Aucun message pour le moment. Commencez la conversation !</p>';
+                    return;
+                }
+                
+                // Trier par date
+                ticketMessages.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                ticketMessages.forEach(message => {
+                    const messageElement = document.createElement('div');
+                    messageElement.className = `message ${message.sender === 'admin' ? 'admin' : 'user'}`;
+                    messageElement.innerHTML = `
+                        <div class="message-header">
+                            <span>${message.sender === 'admin' ? 'Admin Spectra Corp' : message.senderName}</span>
+                            <span>${new Date(message.date).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        <div class="message-content">${message.content}</div>
+                    `;
+                    messageContainer.appendChild(messageElement);
+                });
+                
+                // Scroll vers le bas
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            },
+
+            // Envoyer un message
+            sendMessage: function() {
+                if (!this.data.currentTicketId) return;
+                
+                const messageInput = document.getElementById('messageInput');
+                const content = messageInput.value.trim();
+                
+                if (!content) return;
+                
+                const ticket = this.data.tickets.find(t => t.id === this.data.currentTicketId);
+                if (!ticket) return;
+                
+                const message = {
+                    id: Date.now(),
+                    ticketId: this.data.currentTicketId,
+                    sender: 'admin',
+                    senderName: 'Admin Spectra Corp',
+                    content: content,
+                    date: new Date().toISOString()
+                };
+                
+                this.data.messages.push(message);
+                localStorage.setItem('spectra_messages', JSON.stringify(this.data.messages));
+                
+                // Ajouter le message à l'affichage
+                this.loadMessages(this.data.currentTicketId);
+                
+                // Effacer l'input
+                messageInput.value = '';
+                messageInput.focus();
+            },
+
+            // Changer d'onglet admin
+            switchAdminTab: function(tabId, clickedBtn) {
+                // Mettre à jour les boutons
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                clickedBtn.classList.add('active');
+                
+                // Afficher le contenu correspondant
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
+                document.getElementById(tabId + 'Tab').style.display = 'block';
+                
+                // Si on va sur l'onglet stats, les mettre à jour
+                if (tabId === 'stats') {
+                    this.updateAdminStats();
+                }
+            },
+
+            // Mettre à jour les statistiques admin
+            updateAdminStats: function() {
+                const totalCandidates = this.data.tickets.length;
+                
+                // Candidatures des 7 derniers jours
+                const sevenDaysAgo = new Date();
+                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+                const newCandidates = this.data.tickets.filter(t => 
+                    new Date(t.date) > sevenDaysAgo
+                ).length;
+                
+                document.getElementById('totalCandidates').textContent = totalCandidates;
+                document.getElementById('newCandidates').textContent = newCandidates;
+            },
+
+            // Mettre à jour le statut d'un candidat
+            updateCandidateStatus: function(status) {
+                if (!this.data.currentTicketId) return;
+                
+                const ticketIndex = this.data.tickets.findIndex(t => t.id === this.data.currentTicketId);
+                if (ticketIndex === -1) return;
+                
+                this.data.tickets[ticketIndex].status = status;
+                localStorage.setItem('spectra_tickets', JSON.stringify(this.data.tickets));
+                
+                // Mettre à jour l'affichage
+                document.getElementById('chatCandidateStatus').textContent = this.getStatusText(status);
+                document.getElementById('chatCandidateStatus').className = `candidate-status ${this.getStatusClass(status)}`;
+                
+                // Recharger la liste des candidats
+                this.loadCandidates();
+                
+                alert(`Candidat ${status === 'accepted' ? 'accepté' : 'refusé'} avec succès !`);
+            },
+
+            // Obtenir la classe CSS pour un statut
+            getStatusClass: function(status) {
+                switch(status) {
+                    case 'pending': return 'status-pending';
+                    case 'inreview': return 'status-inreview';
+                    case 'accepted': return 'status-accepted';
+                    case 'rejected': return 'status-rejected';
+                    default: return 'status-pending';
+                }
+            },
+
+            // Obtenir le texte pour un statut
+            getStatusText: function(status) {
+                switch(status) {
+                    case 'pending': return 'En attente';
+                    case 'inreview': return 'En examen';
+                    case 'accepted': return 'Accepté';
+                    case 'rejected': return 'Refusé';
+                    default: return 'En attente';
+                }
+            }
+        };
+
+        // Initialiser l'application
+        document.addEventListener('DOMContentLoaded', function() {
+            App.init();
+        });
+
+        // Exposer App globalement
+        window.App = App;
+    </script>
+</body>
+</html>
