@@ -509,6 +509,32 @@
             color: white;
         }
 
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
         /* Footer */
         footer {
             background: rgba(5, 5, 10, 0.95);
@@ -617,6 +643,11 @@
     </style>
 </head>
 <body>
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i> <span id="successText"></span>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-container">
@@ -929,6 +960,19 @@
             document.getElementById('logoutBtn')?.addEventListener('click', logoutUser);
         }
 
+        // Show success message
+        function showSuccess(message) {
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            
+            successText.textContent = message;
+            successMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+
         // Check Authentication
         function checkAuth() {
             const savedUser = localStorage.getItem('spectra_current_user');
@@ -1000,18 +1044,18 @@
             const password = document.getElementById('regPassword').value;
             
             if (!email || !password) {
-                alert('Veuillez remplir tous les champs !');
+                showSuccess('Veuillez remplir tous les champs !');
                 return;
             }
             
             if (password.length < 6) {
-                alert('Le mot de passe doit faire au moins 6 caractères !');
+                showSuccess('Le mot de passe doit faire au moins 6 caractères !');
                 return;
             }
             
             // Check if user already exists
             if (AppState.users.find(u => u.email === email)) {
-                alert('Cet email est déjà utilisé !');
+                showSuccess('Cet email est déjà utilisé !');
                 return;
             }
             
@@ -1033,7 +1077,7 @@
             // Show dashboard
             showDevDashboard();
             
-            alert('Compte créé avec succès ! Bienvenue !');
+            showSuccess('Compte créé avec succès ! Bienvenue !');
         }
 
         // User Login
@@ -1050,9 +1094,9 @@
                 
                 showDevDashboard();
                 
-                alert('Connexion réussie !');
+                showSuccess('Connexion réussie !');
             } else {
-                alert('Email ou mot de passe incorrect !');
+                showSuccess('Email ou mot de passe incorrect !');
             }
         }
 
@@ -1075,9 +1119,9 @@
                 
                 showAdminPanel();
                 
-                alert('Connexion admin réussie !');
+                showSuccess('Connexion admin réussie !');
             } else {
-                alert('Identifiants admin incorrects !');
+                showSuccess('Identifiants admin incorrects !');
             }
         }
 
@@ -1115,7 +1159,7 @@
             document.getElementById('devEmail').value = '';
             document.getElementById('devPassword').value = '';
             
-            alert('Déconnexion réussie !');
+            showSuccess('Déconnexion réussie !');
         }
 
         // Logout Admin
@@ -1130,7 +1174,7 @@
             document.getElementById('adminEmail').value = '';
             document.getElementById('adminPassword').value = '';
             
-            alert('Déconnexion admin réussie !');
+            showSuccess('Déconnexion admin réussie !');
         }
 
         // Show New Ticket Form
@@ -1150,7 +1194,7 @@
             const reason = document.getElementById('ticketReason').value.trim();
             
             if (!reason) {
-                alert('Veuillez décrire la raison de votre demande !');
+                showSuccess('Veuillez décrire la raison de votre demande !');
                 return;
             }
             
@@ -1185,7 +1229,7 @@
             hideNewTicketForm();
             loadUserTickets();
             
-            alert('Ticket créé avec succès ! Un administrateur va le traiter prochainement.');
+            showSuccess('Ticket créé avec succès ! Un administrateur va le traiter prochainement.');
         }
 
         // Load User Tickets
@@ -1256,12 +1300,13 @@
             sortedTickets.forEach(ticket => {
                 const statusClass = getStatusClass(ticket.status);
                 const statusText = getStatusText(ticket.status);
+                const shortReason = ticket.reason.length > 60 ? ticket.reason.substring(0, 60) + '...' : ticket.reason;
                 
                 const ticketElement = document.createElement('div');
                 ticketElement.className = 'ticket-item';
                 ticketElement.innerHTML = `
                     <div class="ticket-header">
-                        <div class="ticket-reason">${ticket.reason.substring(0, 50)}${ticket.reason.length > 50 ? '...' : ''}</div>
+                        <div class="ticket-reason" title="${ticket.reason}">${shortReason}</div>
                         <div class="ticket-date">${new Date(ticket.createdAt).toLocaleDateString('fr-FR')}</div>
                     </div>
                     <div style="color: #aaa; font-size: 0.9rem; margin: 5px 0;">
@@ -1375,7 +1420,12 @@
             const ticketIndex = AppState.tickets.findIndex(t => t.id === AppState.currentTicket.id);
             if (ticketIndex !== -1) {
                 AppState.tickets[ticketIndex].updatedAt = new Date().toISOString();
+                AppState.tickets[ticketIndex].status = 'inprogress';
                 localStorage.setItem('spectra_tickets', JSON.stringify(AppState.tickets));
+                
+                // Update status display
+                document.getElementById('chatTicketStatus').textContent = 'En traitement';
+                document.getElementById('chatTicketStatus').className = 'ticket-status status-inprogress';
             }
             
             // Reload messages
@@ -1452,7 +1502,7 @@
             loadMessages(AppState.currentTicket.id, 'messageContainer');
             loadAdminTickets();
             
-            alert('Ticket accepté avec succès !');
+            showSuccess('Ticket accepté avec succès !');
         }
 
         // Reject Ticket
@@ -1487,7 +1537,7 @@
             loadMessages(AppState.currentTicket.id, 'messageContainer');
             loadAdminTickets();
             
-            alert('Ticket refusé avec succès !');
+            showSuccess('Ticket refusé avec succès !');
         }
 
         // Close Chat Modal
