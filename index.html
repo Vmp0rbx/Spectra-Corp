@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectra Corp - Recrutement Développeurs Minecraft</title>
+    <title>Spectra Corp - Système de Recrutement</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -121,184 +121,64 @@
             cursor: pointer;
         }
 
-        /* Auth Buttons */
-        .auth-buttons {
+        /* Pages */
+        .page {
+            display: none;
+            min-height: 80vh;
+            padding: 40px 0;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Auth Section */
+        .auth-section {
             display: flex;
-            gap: 10px;
+            justify-content: center;
             align-items: center;
+            min-height: 60vh;
         }
 
-        .auth-btn {
-            padding: 8px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .btn-signup {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .btn-login {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-logout {
-            background: var(--danger);
-            color: white;
-            border: none;
-        }
-
-        .auth-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
-        }
-
-        /* User Info */
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(37, 117, 252, 0.05) 0%, transparent 70%);
-            z-index: -1;
-        }
-
-        .hero h2 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            color: #ccc;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(106, 17, 203, 0.5);
-            color: white;
-        }
-
-        /* Sections */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            width: 70%;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            bottom: -10px;
-            left: 15%;
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: #aaa;
-            max-width: 600px;
-            margin: 20px auto 0;
-        }
-
-        /* Requirements */
-        .requirements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .requirement-card {
-            background: rgba(20, 20, 30, 0.7);
-            border-radius: 15px;
-            padding: 30px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(106, 17, 203, 0.2);
-        }
-
-        .requirement-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(106, 17, 203, 0.5);
-        }
-
-        .requirement-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-
-        .requirement-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        /* Ticket Form */
-        .ticket-form-container {
+        .auth-container {
             background: rgba(20, 20, 30, 0.7);
             border-radius: 15px;
             padding: 40px;
-            max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 500px;
             border: 1px solid rgba(106, 17, 203, 0.2);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(106, 17, 203, 0.3);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .auth-tab.active {
+            color: var(--accent);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
         }
 
         .form-group {
@@ -327,11 +207,6 @@
             border-color: var(--accent);
         }
 
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
         .submit-btn {
             background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
@@ -344,7 +219,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             display: block;
             margin: 30px auto 0;
-            width: 200px;
+            width: 100%;
         }
 
         .submit-btn:hover {
@@ -352,61 +227,293 @@
             box-shadow: 0 10px 20px rgba(106, 17, 203, 0.4);
         }
 
-        /* Team Info */
-        .team-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* Ticket Section */
+        .ticket-section {
             text-align: center;
-            gap: 30px;
+            padding: 40px 0;
         }
 
-        .team-logo {
-            font-size: 5rem;
-            color: var(--accent);
+        .section-title {
+            margin-bottom: 40px;
         }
 
-        .team-description {
-            max-width: 800px;
-            font-size: 1.1rem;
-            color: #ccc;
-            line-height: 1.8;
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
         }
 
-        .team-stats {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 30px;
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 15%;
+            border-radius: 2px;
         }
 
-        .stat {
+        .ticket-form {
             background: rgba(20, 20, 30, 0.7);
             border-radius: 15px;
-            padding: 25px;
-            min-width: 180px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
             border: 1px solid rgba(106, 17, 203, 0.2);
         }
 
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
         }
 
-        .stat-label {
-            margin-top: 10px;
+        /* User Dashboard */
+        .dashboard-container {
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(106, 17, 203, 0.2);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(106, 17, 203, 0.3);
+        }
+
+        .ticket-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .ticket-item {
+            background: rgba(10, 10, 15, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .ticket-item:hover {
+            transform: translateX(5px);
+            background: rgba(10, 10, 15, 0.9);
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ticket-reason {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .ticket-date {
             color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .ticket-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: var(--warning);
+        }
+
+        .status-inprogress {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent);
+        }
+
+        .status-accepted {
+            background: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background: rgba(220, 53, 69, 0.2);
+            color: var(--danger);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 15px;
+            border: 1px solid rgba(106, 17, 203, 0.2);
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(106, 17, 203, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .admin-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 1rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .admin-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        /* Chat Styles */
+        .chat-container {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(10, 10, 15, 0.8);
+            border-radius: 10px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .message.admin {
+            background: rgba(106, 17, 203, 0.3);
+            margin-left: auto;
+            border-bottom-right-radius: 3px;
+        }
+
+        .message.user {
+            background: rgba(37, 117, 252, 0.3);
+            margin-right: auto;
+            border-bottom-left-radius: 3px;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .message-content {
+            word-wrap: break-word;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(106, 17, 203, 0.3);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .chat-send-btn {
+            padding: 12px 25px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: rgba(20, 20, 30, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid rgba(106, 17, 203, 0.5);
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: white;
         }
 
         /* Footer */
         footer {
             background: rgba(5, 5, 10, 0.95);
-            padding: 60px 0 30px;
+            padding: 40px 0 20px;
+            margin-top: 60px;
             border-top: 1px solid rgba(106, 17, 203, 0.3);
         }
 
@@ -459,322 +566,15 @@
             color: var(--accent);
         }
 
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(106, 17, 203, 0.2);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .social-icons a:hover {
-            background: var(--primary);
-            transform: translateY(-5px);
-        }
-
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #777;
             font-size: 0.9rem;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: rgba(20, 20, 30, 0.95);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-            border: 1px solid rgba(106, 17, 203, 0.5);
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-modal:hover {
-            color: white;
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            color: var(--accent);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .modal h3 {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .modal p {
-            text-align: center;
-            color: #ccc;
-            margin-bottom: 30px;
-        }
-
-        /* Chat Styles */
-        .chat-container {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(10, 10, 15, 0.8);
-            border-radius: 10px;
-        }
-
-        .message {
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            border-radius: 10px;
-            max-width: 80%;
-        }
-
-        .message.admin {
-            background: rgba(106, 17, 203, 0.3);
-            margin-left: auto;
-            border-bottom-right-radius: 3px;
-        }
-
-        .message.user {
-            background: rgba(37, 117, 252, 0.3);
-            margin-right: auto;
-            border-bottom-left-radius: 3px;
-        }
-
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.85rem;
-            color: #aaa;
-        }
-
-        .message-content {
-            word-wrap: break-word;
-        }
-
-        .chat-input {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 12px;
-            background: rgba(10, 10, 15, 0.8);
-            border: 1px solid rgba(106, 17, 203, 0.3);
-            border-radius: 10px;
-            color: white;
-        }
-
-        .chat-input button {
-            padding: 12px 25px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        /* Admin Panel Styles */
-        .admin-tabs {
-            margin-top: 20px;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            background: transparent;
-            border: none;
-            color: #aaa;
-            font-size: 1rem;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        .tab-pane {
-            display: none;
-        }
-
-        .tab-pane.active {
-            display: block;
-        }
-
-        .candidate-item {
-            background: rgba(10, 10, 15, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--primary);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .candidate-item:hover {
-            transform: translateX(5px);
-            background: rgba(10, 10, 15, 0.9);
-        }
-
-        .candidate-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .candidate-name {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        .candidate-date {
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        .candidate-discord {
-            color: var(--accent);
-            margin: 5px 0;
-        }
-
-        .candidate-exp {
-            margin: 5px 0;
-            color: #ccc;
-        }
-
-        .candidate-status {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .status-pending {
-            background: rgba(255, 193, 7, 0.2);
-            color: var(--warning);
-        }
-
-        .status-inreview {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--accent);
-        }
-
-        .status-accepted {
-            background: rgba(40, 167, 69, 0.2);
-            color: var(--success);
-        }
-
-        .status-rejected {
-            background: rgba(220, 53, 69, 0.2);
-            color: var(--danger);
-        }
-
-        /* User Dashboard */
-        .dashboard-container {
-            background: rgba(20, 20, 30, 0.7);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 800px;
-            margin: 0 auto;
-            border: 1px solid rgba(106, 17, 203, 0.2);
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(106, 17, 203, 0.3);
-        }
-
-        .user-ticket {
-            background: rgba(10, 10, 15, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .ticket-status {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        /* Login Required Message */
-        .login-required {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .login-required i {
-            font-size: 4rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-
         /* Responsive */
-        @media (max-width: 992px) {
-            nav ul {
-                gap: 15px;
-            }
-            
-            .hero h2 {
-                font-size: 2.8rem;
-            }
-        }
-
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
@@ -805,45 +605,13 @@
                 gap: 20px;
             }
 
-            .auth-buttons {
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            .admin-header {
                 flex-direction: column;
-                width: 100%;
-            }
-
-            .auth-btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .hero h2 {
-                font-size: 2.3rem;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .ticket-form-container {
-                padding: 30px 20px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .stat {
-                min-width: 140px;
-                padding: 20px;
-            }
-            
-            .stat-value {
-                font-size: 2rem;
+                gap: 15px;
             }
         }
     </style>
@@ -858,7 +626,7 @@
                 </div>
                 <div class="logo-text">
                     <h1>SPECTRA CORP</h1>
-                    <span>Minecraft eSport Team</span>
+                    <span>Système de Recrutement</span>
                 </div>
             </div>
             
@@ -868,221 +636,213 @@
             
             <nav id="mainNav">
                 <ul>
-                    <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#recrutement">Recrutement</a></li>
-                    <li><a href="#ticket">Postuler</a></li>
-                    <li><a href="#equipe">Équipe</a></li>
-                    <li id="userNavItem" style="display: none;">
-                        <div class="user-info">
-                            <i class="fas fa-user"></i>
-                            <span id="userName"></span>
-                        </div>
+                    <li><a href="#" onclick="showPage('devPage')">Recrutement Dev</a></li>
+                    <li><a href="#" onclick="showPage('adminPage')">Recrutement Admin</a></li>
+                    <li id="userInfo" style="display: none;">
+                        <span style="color: var(--accent); font-weight: 600;" id="currentUserName"></span>
                     </li>
                     <li>
-                        <div class="auth-buttons" id="authButtons">
-                            <button class="auth-btn btn-signup" id="signupBtn">Inscription</button>
-                            <button class="auth-btn btn-login" id="loginBtn">Connexion</button>
-                        </div>
-                        <div id="userControls" style="display: none;">
-                            <button class="auth-btn btn-logout" id="logoutBtn">Déconnexion</button>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" id="adminLoginLink" class="nav-button" style="background: linear-gradient(to right, var(--warning), var(--danger));">
-                            <i class="fas fa-user-shield"></i> Admin
-                        </a>
+                        <button id="logoutBtn" class="nav-button" style="display: none; background: var(--danger);">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </button>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="accueil">
-        <div class="hero-bg"></div>
+    <!-- Dev Page (Pour les développeurs) -->
+    <section id="devPage" class="page active">
         <div class="container">
-            <h2>Recrutement Développeurs Minecraft</h2>
-            <p>Rejoignez la Spectra Corp, équipe eSport Minecraft d'élite. Nous recherchons des développeurs talentueux spécialisés en Spigot pour créer des expériences de jeu uniques.</p>
-            <a href="#ticket" class="cta-button">Postuler maintenant <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </section>
-
-    <!-- Requirements Section -->
-    <section id="recrutement">
-        <div class="container">
-            <div class="section-title">
-                <h2>Compétences Requises</h2>
-                <p>Nous recherchons des développeurs passionnés avec des compétences spécifiques en développement Minecraft</p>
-            </div>
-            
-            <div class="requirements-grid">
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fab fa-java"></i>
+            <!-- Login/Register Section -->
+            <div id="devAuthSection" class="auth-section">
+                <div class="auth-container">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" onclick="switchAuthTab('devLogin')">Connexion</button>
+                        <button class="auth-tab" onclick="switchAuthTab('devRegister')">Inscription</button>
                     </div>
-                    <h3>Maîtrise de Java</h3>
-                    <p>Solide expérience en programmation Java, avec une compréhension approfondie des concepts POO et des meilleures pratiques de codage.</p>
-                </div>
-                
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-server"></i>
+                    
+                    <!-- Login Form -->
+                    <div id="devLogin" class="auth-form active">
+                        <h3 style="text-align: center; margin-bottom: 30px;">Connexion Développeur</h3>
+                        <div class="form-group">
+                            <label for="devEmail">Email</label>
+                            <input type="email" id="devEmail" class="form-control" placeholder="votre@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="devPassword">Mot de passe</label>
+                            <input type="password" id="devPassword" class="form-control" required>
+                        </div>
+                        
+                        <button type="button" class="submit-btn" onclick="loginUser()">Se connecter</button>
                     </div>
-                    <h3>Expérience Spigot/Bukkit</h3>
-                    <p>Connaissance pratique des API Spigot et Bukkit pour développer des plugins Minecraft performants et optimisés.</p>
-                </div>
-                
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-database"></i>
+                    
+                    <!-- Register Form -->
+                    <div id="devRegister" class="auth-form">
+                        <h3 style="text-align: center; margin-bottom: 30px;">Inscription Développeur</h3>
+                        <div class="form-group">
+                            <label for="regEmail">Email</label>
+                            <input type="email" id="regEmail" class="form-control" placeholder="votre@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="regPassword">Mot de passe (min. 6 caractères)</label>
+                            <input type="password" id="regPassword" class="form-control" minlength="6" required>
+                        </div>
+                        
+                        <button type="button" class="submit-btn" onclick="registerUser()">S'inscrire</button>
                     </div>
-                    <h3>Gestion de Bases de Données</h3>
-                    <p>Capacité à concevoir et implémenter des systèmes de base de données pour les plugins (MySQL, SQLite, MongoDB).</p>
-                </div>
-                
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Développement de Plugins</h3>
-                    <p>Expérience dans la création de plugins Minecraft complets avec fonctionnalités avancées et systèmes personnalisés.</p>
-                </div>
-                
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Travail d'Équipe</h3>
-                    <p>Capacité à collaborer avec d'autres développeurs et membres de l'équipe eSport dans un environnement professionnel.</p>
-                </div>
-                
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <h3>Passion pour Minecraft</h3>
-                    <p>Une véritable passion pour Minecraft et une compréhension approfondie de la communauté et des mécaniques de jeu.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ticket Form Section -->
-    <section id="ticket">
-        <div class="container">
-            <div class="section-title">
-                <h2>Formulaire de Candidature</h2>
-                <p>Soumettez votre candidature pour rejoindre notre équipe de développement</p>
-            </div>
-            
-            <!-- Login Required Message -->
-            <div id="loginRequiredMessage" class="ticket-form-container login-required">
-                <i class="fas fa-lock"></i>
-                <h3>Connexion requise</h3>
-                <p style="color: #ccc; margin-bottom: 30px;">Vous devez être connecté pour soumettre une candidature</p>
-                <div style="display: flex; gap: 15px; justify-content: center;">
-                    <button class="auth-btn btn-signup" id="signupFromFormBtn">Créer un compte</button>
-                    <button class="auth-btn btn-login" id="loginFromFormBtn">Se connecter</button>
                 </div>
             </div>
             
             <!-- User Dashboard -->
-            <div id="userDashboard" class="dashboard-container" style="display: none;">
-                <div class="dashboard-header">
-                    <h3>Mes Candidatures</h3>
-                    <button class="submit-btn" onclick="App.showTicketForm()" style="width: auto; padding: 10px 20px;">
-                        <i class="fas fa-plus"></i> Nouvelle Candidature
-                    </button>
+            <div id="devDashboard" class="ticket-section" style="display: none;">
+                <div class="section-title">
+                    <h2>Mes Tickets de Recrutement</h2>
+                    <p>Gérez vos demandes de recrutement</p>
                 </div>
-                <div id="userTicketsList">
-                    <!-- Les tickets de l'utilisateur seront affichés ici -->
+                
+                <div class="dashboard-container">
+                    <div class="dashboard-header">
+                        <h3>Mes Tickets</h3>
+                        <button class="submit-btn" onclick="showNewTicketForm()" style="width: auto; padding: 10px 20px;">
+                            <i class="fas fa-plus"></i> Nouveau Ticket
+                        </button>
+                    </div>
+                    
+                    <div id="userTicketsList" class="ticket-list">
+                        <!-- Tickets will be loaded here -->
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Ticket Form -->
-            <div id="ticketFormContainer" class="ticket-form-container" style="display: none;">
-                <form id="recruitmentForm">
+                
+                <!-- New Ticket Form -->
+                <div id="newTicketForm" class="ticket-form" style="display: none; margin-top: 30px;">
+                    <h3 style="margin-bottom: 30px;">Nouvelle Demande de Recrutement</h3>
                     <div class="form-group">
-                        <label for="fullName">Nom Complet *</label>
-                        <input type="text" id="fullName" class="form-control" required>
+                        <label for="ticketReason">Raison de la demande *</label>
+                        <textarea id="ticketReason" class="form-control" placeholder="Décrivez pourquoi vous souhaitez rejoindre l'équipe Spectra Corp..." required></textarea>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="email">Adresse Email *</label>
-                        <input type="email" id="email" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="discord">Identifiant Discord *</label>
-                        <input type="text" id="discord" class="form-control" placeholder="ex: Utilisateur#1234" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="experience">Expérience en développement Spigot (années) *</label>
-                        <input type="number" id="experience" class="form-control" min="0" max="50" step="0.5" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="portfolio">Portfolio / Liens vers projets (GitHub, etc.)</label>
-                        <textarea id="portfolio" class="form-control" placeholder="Décrivez vos projets ou partagez des liens vers vos réalisations..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="motivation">Pourquoi souhaitez-vous rejoindre la Spectra Corp ? *</label>
-                        <textarea id="motivation" class="form-control" required placeholder="Expliquez vos motivations et ce que vous pourriez apporter à l'équipe..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Soumettre ma candidature</button>
-                    <button type="button" class="submit-btn" onclick="App.showDashboard()" style="background: var(--warning); margin-top: 10px;">
+                    <button type="button" class="submit-btn" onclick="createTicket()">Créer le Ticket</button>
+                    <button type="button" class="submit-btn" onclick="hideNewTicketForm()" style="background: var(--warning); margin-top: 10px;">
                         Annuler
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Team Info Section -->
-    <section id="equipe">
+    <!-- Admin Page (Pour les administrateurs) -->
+    <section id="adminPage" class="page">
         <div class="container">
-            <div class="section-title">
-                <h2>Notre Équipe</h2>
-                <p>La Spectra Corp Minecraft - Une équipe eSport d'élite</p>
+            <!-- Admin Login -->
+            <div id="adminAuthSection" class="auth-section">
+                <div class="auth-container">
+                    <h3 style="text-align: center; margin-bottom: 30px;">Connexion Admin</h3>
+                    <p style="text-align: center; color: #aaa; margin-bottom: 30px;">
+                        <i class="fas fa-shield-alt"></i> Accès réservé aux administrateurs Spectra Corp
+                    </p>
+                    
+                    <div class="form-group">
+                        <label for="adminEmail">Email Admin</label>
+                        <input type="email" id="adminEmail" class="form-control" placeholder="SpectraProCorp@proton.me" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adminPassword">Mot de passe</label>
+                        <input type="password" id="adminPassword" class="form-control" required>
+                    </div>
+                    
+                    <button type="button" class="submit-btn" onclick="loginAdmin()">Se connecter en Admin</button>
+                </div>
             </div>
             
-            <div class="team-info">
-                <div class="team-logo">
-                    <i class="fas fa-crown"></i>
+            <!-- Admin Panel -->
+            <div id="adminPanel" class="admin-panel" style="display: none;">
+                <div class="admin-header">
+                    <div>
+                        <h3>Panel d'Administration</h3>
+                        <p style="color: #aaa;">Connecté en tant que: <span id="adminName" style="color: var(--accent); font-weight: 600;">Administrateur</span></p>
+                    </div>
+                    <div>
+                        <button class="submit-btn" onclick="logoutAdmin()" style="background: var(--danger); width: auto; padding: 10px 20px;">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion Admin
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="team-description">
-                    <p>La Spectra Corp est une équipe eSport Minecraft compétitive fondée en 2026. Nous nous spécialisons dans le développement de serveurs Minecraft uniques et la participation à des tournois compétitifs. Notre équipe de développement crée des plugins et systèmes personnalisés qui nous donnent un avantage compétitif.</p>
-                    <p>Nous recherchons actuellement des développeurs talentueux pour étendre notre équipe technique et créer la prochaine génération de plugins Minecraft pour notre serveur et notre communauté.</p>
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchAdminTab('ticketsTab')">Tickets (<span id="ticketCount">0</span>)</button>
+                    <button class="admin-tab" onclick="switchAdminTab('chatTab')">Discussion</button>
                 </div>
                 
-                <div class="team-stats">
-                    <div class="stat">
-                        <div class="stat-value">15+</div>
-                        <div class="stat-label">Tournois gagnés</div>
+                <!-- Tickets Tab -->
+                <div id="ticketsTab" class="admin-content active">
+                    <div id="adminTicketsList" class="ticket-list">
+                        <!-- Admin tickets will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Chat Tab -->
+                <div id="chatTab" class="admin-content">
+                    <div id="chatInfo" style="text-align: center; color: #aaa; padding: 40px;">
+                        <i class="fas fa-comments" style="font-size: 4rem; margin-bottom: 20px; color: var(--accent);"></i>
+                        <h4>Sélectionnez un ticket pour commencer la discussion</h4>
+                        <p>Cliquez sur un ticket dans la liste pour discuter avec le candidat</p>
                     </div>
                     
-                    <div class="stat">
-                        <div class="stat-value">50k+</div>
-                        <div class="stat-label">Joueurs uniques</div>
-                    </div>
-                    
-                    <div class="stat">
-                        <div class="stat-value">8</div>
-                        <div class="stat-label">Développeurs actifs</div>
-                    </div>
-                    
-                    <div class="stat">
-                        <div class="stat-value">4</div>
-                        <div class="stat-label">Serveurs actifs</div>
+                    <div id="chatContainer" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px; background: rgba(20, 20, 30, 0.7); border-radius: 10px;">
+                            <div>
+                                <h4 id="chatTicketInfo" style="color: white;"></h4>
+                                <div id="chatTicketStatus" class="ticket-status status-pending" style="display: inline-block; margin-top: 5px;"></div>
+                            </div>
+                            <div>
+                                <button id="acceptBtn" class="submit-btn" style="width: auto; padding: 8px 15px; background: var(--success); margin-right: 10px;">
+                                    <i class="fas fa-check"></i> Accepter
+                                </button>
+                                <button id="rejectBtn" class="submit-btn" style="width: auto; padding: 8px 15px; background: var(--danger);">
+                                    <i class="fas fa-times"></i> Refuser
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-container" id="messageContainer">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                        
+                        <div class="chat-input-container">
+                            <input type="text" id="messageInput" class="chat-input" placeholder="Tapez votre message..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                            <button id="sendMessageBtn" class="chat-send-btn" onclick="sendMessage()">Envoyer</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Chat Modal (For Users) -->
+    <div class="modal" id="chatModal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeChatModal()">&times;</div>
+            <h3 style="text-align: center; margin-bottom: 20px;">Discussion du Ticket</h3>
+            
+            <div style="margin-bottom: 20px; padding: 15px; background: rgba(20, 20, 30, 0.7); border-radius: 10px;">
+                <h4 id="modalTicketInfo" style="color: white;"></h4>
+                <div id="modalTicketStatus" class="ticket-status status-pending" style="display: inline-block; margin-top: 5px;"></div>
+            </div>
+            
+            <div class="chat-container" id="modalMessageContainer">
+                <!-- Messages will be loaded here -->
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" id="modalMessageInput" class="chat-input" placeholder="Tapez votre message..." onkeypress="if(event.key === 'Enter') sendUserMessage()">
+                <button id="modalSendMessageBtn" class="chat-send-btn" onclick="sendUserMessage()">Envoyer</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1090,949 +850,692 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Spectra Corp</h3>
-                    <p>Équipe eSport Minecraft d'élite spécialisée dans le développement de serveurs compétitifs et d'expériences de jeu uniques.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                    </div>
+                    <p>Système de recrutement pour développeurs Minecraft. Gestion des tickets et communication entre candidats et administrateurs.</p>
                 </div>
                 
                 <div class="footer-column">
-                    <h3>Liens Rapides</h3>
+                    <h3>Accès Rapide</h3>
                     <ul class="footer-links">
-                        <li><a href="#accueil">Accueil</a></li>
-                        <li><a href="#recrutement">Recrutement</a></li>
-                        <li><a href="#ticket">Postuler</a></li>
-                        <li><a href="#equipe">Notre Équipe</a></li>
+                        <li><a href="#" onclick="showPage('devPage')">Recrutement Dev</a></li>
+                        <li><a href="#" onclick="showPage('adminPage')">Recrutement Admin</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h3>Contact</h3>
+                    <h3>Support</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-envelope"></i> SpectraProCorp@proton.me</li>
-                        <li><i class="fab fa-discord"></i> https://discord.gg/X736BTR4fu</li>
-                        <li><i class="fas fa-globe"></i> www.spectracorp.netlify.app</li>
+                        <li><i class="fab fa-discord"></i> discord.gg/spectracorp</li>
+                        <li><i class="fas fa-globe"></i> spectracorp.netlify.app</li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2026 Spectra Corp Minecraft eSport Team. Tous droits réservés.</p>
+                <p>&copy; 2024 Spectra Corp Recrutement System. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Success Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal-content">
-            <div class="close-modal" id="closeModal">&times;</div>
-            <div class="modal-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3>Candidature envoyée !</h3>
-            <p>Votre formulaire de recrutement a été soumis avec succès. Notre équipe examinera votre candidature et vous contactera via Discord dans les 7 à 14 jours.</p>
-            <p>Merci pour votre intérêt à rejoindre la Spectra Corp !</p>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <div class="close-modal" id="closeLoginModal">&times;</div>
-            <div class="modal-icon">
-                <i class="fas fa-sign-in-alt"></i>
-            </div>
-            <h3>Connexion</h3>
-            <form id="userLoginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="loginPassword">Mot de passe</label>
-                    <input type="password" id="loginPassword" class="form-control" required>
-                </div>
-                
-                <button type="submit" class="submit-btn">Se connecter</button>
-            </form>
-            <p class="text-center" style="margin-top: 20px;">
-                Pas encore de compte ? <a href="#" id="switchToSignup">S'inscrire</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div class="modal" id="signupModal">
-        <div class="modal-content">
-            <div class="close-modal" id="closeSignupModal">&times;</div>
-            <div class="modal-icon">
-                <i class="fas fa-user-plus"></i>
-            </div>
-            <h3>Inscription</h3>
-            <form id="userSignupForm">
-                <div class="form-group">
-                    <label for="signupName">Nom complet</label>
-                    <input type="text" id="signupName" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signupEmail">Email</label>
-                    <input type="email" id="signupEmail" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signupPassword">Mot de passe (min. 6 caractères)</label>
-                    <input type="password" id="signupPassword" class="form-control" minlength="6" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signupConfirmPassword">Confirmer le mot de passe</label>
-                    <input type="password" id="signupConfirmPassword" class="form-control" required>
-                </div>
-                
-                <button type="submit" class="submit-btn">S'inscrire</button>
-            </form>
-            <p class="text-center" style="margin-top: 20px;">
-                Déjà un compte ? <a href="#" id="switchToLogin">Se connecter</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- Admin Login Modal -->
-    <div class="modal" id="adminLoginModal">
-        <div class="modal-content">
-            <div class="close-modal" id="closeAdminLoginModal">&times;</div>
-            <div class="modal-icon">
-                <i class="fas fa-user-shield"></i>
-            </div>
-            <h3>Connexion Admin</h3>
-            <p style="color: #aaa; text-align: center; margin-bottom: 20px;">
-                Accès réservé aux administrateurs Spectra Corp
-            </p>
-            <form id="adminLoginForm">
-                <div class="form-group">
-                    <label for="adminEmail">Email Admin</label>
-                    <input type="email" id="adminEmail" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="adminPassword">Mot de passe Admin</label>
-                    <input type="password" id="adminPassword" class="form-control" required>
-                </div>
-                
-                <button type="submit" class="submit-btn">Se connecter en Admin</button>
-            </form>
-            <p class="text-center" style="margin-top: 20px; color: #777; font-size: 0.9rem;">
-                <i class="fas fa-info-circle"></i> Accès réservé au personnel autorisé
-            </p>
-        </div>
-    </div>
-
-    <!-- Admin Panel Modal -->
-    <div class="modal" id="adminPanelModal">
-        <div class="modal-content" style="max-width: 900px;">
-            <div class="close-modal" id="closeAdminPanel">&times;</div>
-            <div class="modal-icon">
-                <i class="fas fa-tachometer-alt"></i>
-            </div>
-            <h3>Panel d'Administration Spectra Corp</h3>
-            <p class="text-center" style="margin-bottom: 30px;">
-                Connecté en tant que: <span id="adminNameDisplay" style="color: var(--accent); font-weight: bold;">Administrateur</span>
-                <button id="adminLogoutBtn" style="margin-left: 15px; padding: 5px 15px; background: var(--danger); border: none; border-radius: 5px; color: white; cursor: pointer;">
-                    Déconnexion
-                </button>
-            </p>
-            
-            <div class="admin-tabs">
-                <div class="tab-buttons" style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 1px solid rgba(106, 17, 203, 0.3); flex-wrap: wrap;">
-                    <button class="tab-btn active" data-tab="candidates">Candidatures (<span id="candidateCount">0</span>)</button>
-                    <button class="tab-btn" data-tab="chat">Discussion Ticket</button>
-                    <button class="tab-btn" data-tab="stats">Statistiques</button>
-                </div>
-                
-                <div class="tab-content">
-                    <div id="candidatesTab" class="tab-pane active">
-                        <div class="candidates-list" id="candidatesList" style="max-height: 400px; overflow-y: auto;">
-                            <!-- Les candidatures seront ajoutées ici dynamiquement -->
-                            <p class="text-center" style="color: #aaa; padding: 20px;">
-                                Aucune candidature pour le moment.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div id="chatTab" class="tab-pane" style="display: none;">
-                        <div id="chatInfo" style="text-align: center; color: #aaa; padding: 20px;">
-                            <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                            <p>Sélectionnez une candidature pour commencer la discussion</p>
-                        </div>
-                        <div id="chatContainer" style="display: none;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(106, 17, 203, 0.3);">
-                                <h4 id="chatCandidateName" style="color: white;"></h4>
-                                <div>
-                                    <span id="chatCandidateStatus" class="candidate-status status-pending"></span>
-                                    <button id="acceptCandidateBtn" class="submit-btn" style="width: auto; padding: 8px 15px; margin-left: 10px; background: var(--success);">
-                                        <i class="fas fa-check"></i> Accepter
-                                    </button>
-                                    <button id="rejectCandidateBtn" class="submit-btn" style="width: auto; padding: 8px 15px; background: var(--danger);">
-                                        <i class="fas fa-times"></i> Refuser
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="chat-container" id="messageContainer">
-                                <!-- Messages de chat seront affichés ici -->
-                            </div>
-                            <div class="chat-input">
-                                <input type="text" id="messageInput" placeholder="Tapez votre message...">
-                                <button id="sendMessageBtn">Envoyer</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="statsTab" class="tab-pane" style="display: none;">
-                        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                            <div class="stat-card" style="background: rgba(20, 20, 30, 0.7); padding: 20px; border-radius: 10px;">
-                                <h4 style="margin-bottom: 10px;">Total Candidatures</h4>
-                                <div class="stat-number" id="totalCandidates" style="font-size: 2rem; color: var(--accent);">0</div>
-                            </div>
-                            <div class="stat-card" style="background: rgba(20, 20, 30, 0.7); padding: 20px; border-radius: 10px;">
-                                <h4 style="margin-bottom: 10px;">Nouvelles (7 jours)</h4>
-                                <div class="stat-number" id="newCandidates" style="font-size: 2rem; color: var(--warning);">0</div>
-                            </div>
-                            <div class="stat-card" style="background: rgba(20, 20, 30, 0.7); padding: 20px; border-radius: 10px; grid-column: span 2;">
-                                <h4 style="margin-bottom: 10px;">Informations de connexion Admin</h4>
-                                <div style="color: #ccc; font-size: 0.9rem;">
-                                    <p><strong>Email:</strong> SpectraProCorp@proton.me</p>
-                                    <p><strong>Mot de passe:</strong> SpectraCorp@#RTX@#8080!$</p>
-                                    <p style="color: var(--warning); margin-top: 10px;">
-                                        <i class="fas fa-exclamation-triangle"></i> Ces identifiants sont préconfigurés
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Application principale
-        const App = {
-            // Données
-            data: {
-                currentUser: null,
-                currentAdmin: null,
-                users: JSON.parse(localStorage.getItem('spectra_users')) || [],
-                adminUsers: JSON.parse(localStorage.getItem('spectra_admins')) || [
-                    {
-                        id: 1,
-                        email: "SpectraProCorp@proton.me",
-                        password: "SpectraCorp@#RTX@#8080!$",
-                        name: "Admin Principal"
-                    }
-                ],
-                tickets: JSON.parse(localStorage.getItem('spectra_tickets')) || [],
-                messages: JSON.parse(localStorage.getItem('spectra_messages')) || [],
-                currentTicketId: null
-            },
-
-            // Initialisation
-            init: function() {
-                this.setupEventListeners();
-                this.checkUserSession();
-                this.checkAdminSession();
-                this.updateUI();
-            },
-
-            // Vérifier session utilisateur
-            checkUserSession: function() {
-                const savedUser = localStorage.getItem('spectra_current_user');
-                if (savedUser) {
-                    this.data.currentUser = JSON.parse(savedUser);
-                }
-            },
-
-            // Vérifier session admin
-            checkAdminSession: function() {
-                const savedAdmin = localStorage.getItem('spectra_current_admin');
-                if (savedAdmin) {
-                    this.data.currentAdmin = JSON.parse(savedAdmin);
-                }
-            },
-
-            // Mettre à jour l'UI
-            updateUI: function() {
-                const authButtons = document.getElementById('authButtons');
-                const userControls = document.getElementById('userControls');
-                const userNavItem = document.getElementById('userNavItem');
-                const userName = document.getElementById('userName');
-                const loginRequiredMessage = document.getElementById('loginRequiredMessage');
-                const userDashboard = document.getElementById('userDashboard');
-                const adminLoginLink = document.getElementById('adminLoginLink');
-                
-                // Gestion utilisateur
-                if (this.data.currentUser) {
-                    authButtons.style.display = 'none';
-                    userControls.style.display = 'block';
-                    userNavItem.style.display = 'block';
-                    userName.textContent = this.data.currentUser.name;
-                    
-                    // Afficher dashboard
-                    loginRequiredMessage.style.display = 'none';
-                    userDashboard.style.display = 'block';
-                    this.loadUserTickets();
-                } else {
-                    authButtons.style.display = 'flex';
-                    userControls.style.display = 'none';
-                    userNavItem.style.display = 'none';
-                    
-                    // Afficher message login required
-                    loginRequiredMessage.style.display = 'block';
-                    userDashboard.style.display = 'none';
-                }
-                
-                // Gestion admin
-                if (this.data.currentAdmin) {
-                    adminLoginLink.innerHTML = '<i class="fas fa-user-shield"></i> Admin Panel';
-                    adminLoginLink.style.background = 'linear-gradient(to right, var(--success), var(--accent))';
-                } else {
-                    adminLoginLink.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
-                    adminLoginLink.style.background = 'linear-gradient(to right, var(--warning), var(--danger))';
-                }
-            },
-
-            // Configuration des événements
-            setupEventListeners: function() {
-                // Mobile menu
-                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-                const mainNav = document.getElementById('mainNav');
-                
-                if (mobileMenuBtn) {
-                    mobileMenuBtn.addEventListener('click', () => {
-                        mainNav.classList.toggle('active');
-                        mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                            ? '<i class="fas fa-times"></i>' 
-                            : '<i class="fas fa-bars"></i>';
-                    });
-                }
-                
-                // Fermer menu mobile au clic sur un lien
-                document.querySelectorAll('nav a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mainNav.classList.remove('active');
-                        if (mobileMenuBtn) {
-                            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                        }
-                    });
-                });
-
-                // Navigation smooth
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function(e) {
-                        if (this.getAttribute('href') === '#') return;
-                        
-                        const targetId = this.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        
-                        if (targetElement) {
-                            e.preventDefault();
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 80,
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-
-                // Boutons d'inscription
-                document.getElementById('signupBtn')?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.openSignupModal();
-                });
-                
-                document.getElementById('signupFromFormBtn')?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.openSignupModal();
-                });
-
-                // Boutons de connexion
-                document.getElementById('loginBtn')?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.openLoginModal();
-                });
-                
-                document.getElementById('loginFromFormBtn')?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.openLoginModal();
-                });
-
-                // Bouton déconnexion
-                document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.logout();
-                });
-
-                // Bouton admin
-                document.getElementById('adminLoginLink')?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (this.data.currentAdmin) {
-                        this.openAdminPanel();
-                    } else {
-                        this.openAdminLoginModal();
-                    }
-                });
-
-                // Formulaire d'inscription
-                document.getElementById('userSignupForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleSignup();
-                });
-
-                // Formulaire de connexion
-                document.getElementById('userLoginForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleLogin();
-                });
-
-                // Formulaire admin
-                document.getElementById('adminLoginForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleAdminLogin();
-                });
-
-                // Formulaire de candidature
-                document.getElementById('recruitmentForm')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleTicketSubmission();
-                });
-
-                // Switch entre login/signup
-                document.getElementById('switchToSignup')?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.closeModal('loginModal');
-                    this.openSignupModal();
-                });
-                
-                document.getElementById('switchToLogin')?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.closeModal('signupModal');
-                    this.openLoginModal();
-                });
-
-                // Fermer modals
-                document.getElementById('closeModal')?.addEventListener('click', () => {
-                    this.closeModal('successModal');
-                });
-                
-                document.getElementById('closeLoginModal')?.addEventListener('click', () => {
-                    this.closeModal('loginModal');
-                });
-                
-                document.getElementById('closeSignupModal')?.addEventListener('click', () => {
-                    this.closeModal('signupModal');
-                });
-                
-                document.getElementById('closeAdminLoginModal')?.addEventListener('click', () => {
-                    this.closeModal('adminLoginModal');
-                });
-                
-                document.getElementById('closeAdminPanel')?.addEventListener('click', () => {
-                    this.closeModal('adminPanelModal');
-                });
-
-                // Déconnexion admin
-                document.getElementById('adminLogoutBtn')?.addEventListener('click', () => {
-                    this.handleAdminLogout();
-                });
-
-                // Fermer modals au clic extérieur
-                window.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('modal')) {
-                        e.target.style.display = 'none';
-                    }
-                });
-
-                // Tabs admin
-                document.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const tabId = btn.getAttribute('data-tab');
-                        this.switchAdminTab(tabId, btn);
-                    });
-                });
-
-                // Envoyer message
-                document.getElementById('sendMessageBtn')?.addEventListener('click', () => {
-                    this.sendMessage();
-                });
-
-                // Accepter/refuser candidat
-                document.getElementById('acceptCandidateBtn')?.addEventListener('click', () => {
-                    this.updateCandidateStatus('accepted');
-                });
-                
-                document.getElementById('rejectCandidateBtn')?.addEventListener('click', () => {
-                    this.updateCandidateStatus('rejected');
-                });
-            },
-
-            // Ouvrir modal inscription
-            openSignupModal: function() {
-                this.closeAllModals();
-                document.getElementById('signupModal').style.display = 'flex';
-                document.getElementById('signupName').focus();
-            },
-
-            // Ouvrir modal connexion
-            openLoginModal: function() {
-                this.closeAllModals();
-                document.getElementById('loginModal').style.display = 'flex';
-                document.getElementById('loginEmail').focus();
-            },
-
-            // Ouvrir modal admin
-            openAdminLoginModal: function() {
-                this.closeAllModals();
-                document.getElementById('adminLoginModal').style.display = 'flex';
-                document.getElementById('adminEmail').value = 'SpectraProCorp@proton.me';
-                document.getElementById('adminPassword').value = 'SpectraCorp@#RTX@#8080!$';
-                document.getElementById('adminEmail').focus();
-            },
-
-            // Fermer modal
-            closeModal: function(modalId) {
-                document.getElementById(modalId).style.display = 'none';
-            },
-
-            // Fermer tous les modals
-            closeAllModals: function() {
-                document.querySelectorAll('.modal').forEach(modal => {
-                    modal.style.display = 'none';
-                });
-            },
-
-            // Gestion inscription
-            handleSignup: function() {
-                const name = document.getElementById('signupName').value;
-                const email = document.getElementById('signupEmail').value;
-                const password = document.getElementById('signupPassword').value;
-                const confirmPassword = document.getElementById('signupConfirmPassword').value;
-                
-                // Validation
-                if (password !== confirmPassword) {
-                    alert('Les mots de passe ne correspondent pas !');
-                    return;
-                }
-                
-                if (password.length < 6) {
-                    alert('Le mot de passe doit faire au moins 6 caractères !');
-                    return;
-                }
-                
-                // Vérifier si l'email existe déjà
-                if (this.data.users.find(u => u.email === email)) {
-                    alert('Cet email est déjà utilisé !');
-                    return;
-                }
-                
-                // Créer utilisateur
-                const newUser = {
-                    id: Date.now(),
-                    name: name,
-                    email: email,
-                    password: password,
-                    createdAt: new Date().toISOString()
-                };
-                
-                this.data.users.push(newUser);
-                localStorage.setItem('spectra_users', JSON.stringify(this.data.users));
-                
-                // Connecter automatiquement
-                this.data.currentUser = newUser;
-                localStorage.setItem('spectra_current_user', JSON.stringify(newUser));
-                
-                // Fermer modal et mettre à jour UI
-                this.closeModal('signupModal');
-                this.updateUI();
-                
-                alert('Compte créé avec succès ! Bienvenue ' + name + ' !');
-            },
-
-            // Gestion connexion
-            handleLogin: function() {
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                
-                // Trouver l'utilisateur
-                const user = this.data.users.find(u => u.email === email && u.password === password);
-                
-                if (user) {
-                    this.data.currentUser = user;
-                    localStorage.setItem('spectra_current_user', JSON.stringify(user));
-                    
-                    this.closeModal('loginModal');
-                    this.updateUI();
-                    
-                    alert('Connexion réussie ! Bienvenue ' + user.name + ' !');
-                } else {
-                    alert('Email ou mot de passe incorrect !');
-                }
-            },
-
-            // Gestion connexion admin
-            handleAdminLogin: function() {
-                const email = document.getElementById('adminEmail').value;
-                const password = document.getElementById('adminPassword').value;
-                
-                // Trouver l'admin
-                const admin = this.data.adminUsers.find(a => a.email === email && a.password === password);
-                
-                if (admin) {
-                    this.data.currentAdmin = admin;
-                    localStorage.setItem('spectra_current_admin', JSON.stringify(admin));
-                    
-                    this.closeModal('adminLoginModal');
-                    this.openAdminPanel();
-                    
-                    alert('Connexion admin réussie !');
-                } else {
-                    alert('Identifiants admin incorrects !');
-                }
-            },
-
-            // Déconnexion
-            logout: function() {
-                this.data.currentUser = null;
-                localStorage.removeItem('spectra_current_user');
-                this.updateUI();
-                alert('Déconnexion réussie !');
-            },
-
-            // Déconnexion admin
-            handleAdminLogout: function() {
-                this.data.currentAdmin = null;
-                localStorage.removeItem('spectra_current_admin');
-                this.closeModal('adminPanelModal');
-                this.updateUI();
-                alert('Déconnexion admin réussie !');
-            },
-
-            // Afficher formulaire de ticket
-            showTicketForm: function() {
-                document.getElementById('userDashboard').style.display = 'none';
-                document.getElementById('ticketFormContainer').style.display = 'block';
-                
-                // Pré-remplir les champs
-                if (this.data.currentUser) {
-                    document.getElementById('fullName').value = this.data.currentUser.name;
-                    document.getElementById('email').value = this.data.currentUser.email;
-                }
-            },
-
-            // Afficher dashboard
-            showDashboard: function() {
-                document.getElementById('ticketFormContainer').style.display = 'none';
-                document.getElementById('userDashboard').style.display = 'block';
-            },
-
-            // Gestion soumission ticket
-            handleTicketSubmission: function() {
-                if (!this.data.currentUser) {
-                    alert('Vous devez être connecté !');
-                    return;
-                }
-                
-                const ticket = {
-                    id: Date.now(),
-                    userId: this.data.currentUser.id,
-                    userName: this.data.currentUser.name,
-                    userEmail: this.data.currentUser.email,
-                    fullName: document.getElementById('fullName').value,
-                    email: document.getElementById('email').value,
-                    discord: document.getElementById('discord').value,
-                    experience: document.getElementById('experience').value,
-                    portfolio: document.getElementById('portfolio').value,
-                    motivation: document.getElementById('motivation').value,
-                    status: 'pending',
-                    date: new Date().toISOString(),
-                    messages: []
-                };
-                
-                this.data.tickets.push(ticket);
-                localStorage.setItem('spectra_tickets', JSON.stringify(this.data.tickets));
-                
-                // Réinitialiser le formulaire
-                document.getElementById('recruitmentForm').reset();
-                
-                // Afficher succès
-                this.showDashboard();
-                this.loadUserTickets();
-                
-                // Afficher modal de succès
-                document.getElementById('successModal').style.display = 'flex';
-            },
-
-            // Charger les tickets de l'utilisateur
-            loadUserTickets: function() {
-                if (!this.data.currentUser) return;
-                
-                const userTicketsList = document.getElementById('userTicketsList');
-                const userTickets = this.data.tickets.filter(t => t.userId === this.data.currentUser.id);
-                
-                if (userTickets.length === 0) {
-                    userTicketsList.innerHTML = '<p class="text-center" style="color: #aaa; padding: 20px;">Vous n\'avez pas encore soumis de candidature.</p>';
-                    return;
-                }
-                
-                // Trier par date (plus récent en premier)
-                userTickets.sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                userTicketsList.innerHTML = '';
-                userTickets.forEach(ticket => {
-                    const statusClass = this.getStatusClass(ticket.status);
-                    const statusText = this.getStatusText(ticket.status);
-                    
-                    const ticketElement = document.createElement('div');
-                    ticketElement.className = 'user-ticket';
-                    ticketElement.innerHTML = `
-                        <div class="ticket-status ${statusClass}">${statusText}</div>
-                        <h4 style="margin-bottom: 10px;">Candidature du ${new Date(ticket.date).toLocaleDateString('fr-FR')}</h4>
-                        <p><strong>Discord:</strong> ${ticket.discord}</p>
-                        <p><strong>Expérience:</strong> ${ticket.experience} an(s)</p>
-                        <p style="margin-top: 10px; color: #ccc;">${ticket.motivation.substring(0, 100)}${ticket.motivation.length > 100 ? '...' : ''}</p>
-                    `;
-                    userTicketsList.appendChild(ticketElement);
-                });
-            },
-
-            // Ouvrir panel admin
-            openAdminPanel: function() {
-                this.closeAllModals();
-                document.getElementById('adminPanelModal').style.display = 'flex';
-                this.loadCandidates();
-                this.updateAdminStats();
-            },
-
-            // Charger les candidatures dans le panel admin
-            loadCandidates: function() {
-                const candidatesList = document.getElementById('candidatesList');
-                const candidateCount = document.getElementById('candidateCount');
-                
-                if (this.data.tickets.length === 0) {
-                    candidatesList.innerHTML = '<p class="text-center" style="color: #aaa; padding: 20px;">Aucune candidature pour le moment.</p>';
-                    candidateCount.textContent = '0';
-                    return;
-                }
-                
-                // Trier par date (plus récent en premier)
-                const sortedTickets = [...this.data.tickets].sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                candidateCount.textContent = sortedTickets.length;
-                candidatesList.innerHTML = '';
-                
-                sortedTickets.forEach(ticket => {
-                    const statusClass = this.getStatusClass(ticket.status);
-                    const statusText = this.getStatusText(ticket.status);
-                    
-                    const candidateItem = document.createElement('div');
-                    candidateItem.className = 'candidate-item';
-                    candidateItem.dataset.ticketId = ticket.id;
-                    candidateItem.innerHTML = `
-                        <div class="candidate-header">
-                            <div class="candidate-name">${ticket.fullName}</div>
-                            <div class="candidate-date">${new Date(ticket.date).toLocaleDateString('fr-FR')}</div>
-                        </div>
-                        <div class="candidate-discord">
-                            <i class="fab fa-discord"></i> ${ticket.discord}
-                        </div>
-                        <div class="candidate-exp">
-                            <i class="fas fa-code"></i> ${ticket.experience} an(s) d'expérience
-                        </div>
-                        <div style="margin-top: 10px; color: #ccc; font-size: 0.9rem;">
-                            ${ticket.motivation.substring(0, 100)}${ticket.motivation.length > 100 ? '...' : ''}
-                        </div>
-                        <div class="candidate-status ${statusClass}">${statusText}</div>
-                    `;
-                    
-                    candidateItem.addEventListener('click', () => {
-                        this.openChat(ticket.id);
-                    });
-                    
-                    candidatesList.appendChild(candidateItem);
-                });
-            },
-
-            // Ouvrir chat avec un candidat
-            openChat: function(ticketId) {
-                this.data.currentTicketId = ticketId;
-                const ticket = this.data.tickets.find(t => t.id === ticketId);
-                
-                if (!ticket) return;
-                
-                // Afficher info candidat
-                document.getElementById('chatCandidateName').textContent = ticket.fullName;
-                document.getElementById('chatCandidateStatus').textContent = this.getStatusText(ticket.status);
-                document.getElementById('chatCandidateStatus').className = `candidate-status ${this.getStatusClass(ticket.status)}`;
-                
-                // Afficher container chat
-                document.getElementById('chatInfo').style.display = 'none';
-                document.getElementById('chatContainer').style.display = 'block';
-                
-                // Charger les messages
-                this.loadMessages(ticketId);
-                
-                // Passer à l'onglet chat
-                this.switchAdminTab('chat', document.querySelector('.tab-btn[data-tab="chat"]'));
-            },
-
-            // Charger les messages
-            loadMessages: function(ticketId) {
-                const messageContainer = document.getElementById('messageContainer');
-                const ticketMessages = this.data.messages.filter(m => m.ticketId === ticketId);
-                
-                messageContainer.innerHTML = '';
-                
-                if (ticketMessages.length === 0) {
-                    messageContainer.innerHTML = '<p style="text-align: center; color: #aaa; padding: 20px;">Aucun message pour le moment. Commencez la conversation !</p>';
-                    return;
-                }
-                
-                // Trier par date
-                ticketMessages.sort((a, b) => new Date(a.date) - new Date(b.date));
-                
-                ticketMessages.forEach(message => {
-                    const messageElement = document.createElement('div');
-                    messageElement.className = `message ${message.sender === 'admin' ? 'admin' : 'user'}`;
-                    messageElement.innerHTML = `
-                        <div class="message-header">
-                            <span>${message.sender === 'admin' ? 'Admin Spectra Corp' : message.senderName}</span>
-                            <span>${new Date(message.date).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
-                        </div>
-                        <div class="message-content">${message.content}</div>
-                    `;
-                    messageContainer.appendChild(messageElement);
-                });
-                
-                // Scroll vers le bas
-                messageContainer.scrollTop = messageContainer.scrollHeight;
-            },
-
-            // Envoyer un message
-            sendMessage: function() {
-                if (!this.data.currentTicketId) return;
-                
-                const messageInput = document.getElementById('messageInput');
-                const content = messageInput.value.trim();
-                
-                if (!content) return;
-                
-                const ticket = this.data.tickets.find(t => t.id === this.data.currentTicketId);
-                if (!ticket) return;
-                
-                const message = {
-                    id: Date.now(),
-                    ticketId: this.data.currentTicketId,
-                    sender: 'admin',
-                    senderName: 'Admin Spectra Corp',
-                    content: content,
-                    date: new Date().toISOString()
-                };
-                
-                this.data.messages.push(message);
-                localStorage.setItem('spectra_messages', JSON.stringify(this.data.messages));
-                
-                // Ajouter le message à l'affichage
-                this.loadMessages(this.data.currentTicketId);
-                
-                // Effacer l'input
-                messageInput.value = '';
-                messageInput.focus();
-            },
-
-            // Changer d'onglet admin
-            switchAdminTab: function(tabId, clickedBtn) {
-                // Mettre à jour les boutons
-                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                clickedBtn.classList.add('active');
-                
-                // Afficher le contenu correspondant
-                document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
-                document.getElementById(tabId + 'Tab').style.display = 'block';
-                
-                // Si on va sur l'onglet stats, les mettre à jour
-                if (tabId === 'stats') {
-                    this.updateAdminStats();
-                }
-            },
-
-            // Mettre à jour les statistiques admin
-            updateAdminStats: function() {
-                const totalCandidates = this.data.tickets.length;
-                
-                // Candidatures des 7 derniers jours
-                const sevenDaysAgo = new Date();
-                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-                const newCandidates = this.data.tickets.filter(t => 
-                    new Date(t.date) > sevenDaysAgo
-                ).length;
-                
-                document.getElementById('totalCandidates').textContent = totalCandidates;
-                document.getElementById('newCandidates').textContent = newCandidates;
-            },
-
-            // Mettre à jour le statut d'un candidat
-            updateCandidateStatus: function(status) {
-                if (!this.data.currentTicketId) return;
-                
-                const ticketIndex = this.data.tickets.findIndex(t => t.id === this.data.currentTicketId);
-                if (ticketIndex === -1) return;
-                
-                this.data.tickets[ticketIndex].status = status;
-                localStorage.setItem('spectra_tickets', JSON.stringify(this.data.tickets));
-                
-                // Mettre à jour l'affichage
-                document.getElementById('chatCandidateStatus').textContent = this.getStatusText(status);
-                document.getElementById('chatCandidateStatus').className = `candidate-status ${this.getStatusClass(status)}`;
-                
-                // Recharger la liste des candidats
-                this.loadCandidates();
-                
-                alert(`Candidat ${status === 'accepted' ? 'accepté' : 'refusé'} avec succès !`);
-            },
-
-            // Obtenir la classe CSS pour un statut
-            getStatusClass: function(status) {
-                switch(status) {
-                    case 'pending': return 'status-pending';
-                    case 'inreview': return 'status-inreview';
-                    case 'accepted': return 'status-accepted';
-                    case 'rejected': return 'status-rejected';
-                    default: return 'status-pending';
-                }
-            },
-
-            // Obtenir le texte pour un statut
-            getStatusText: function(status) {
-                switch(status) {
-                    case 'pending': return 'En attente';
-                    case 'inreview': return 'En examen';
-                    case 'accepted': return 'Accepté';
-                    case 'rejected': return 'Refusé';
-                    default: return 'En attente';
-                }
-            }
+        // Application State
+        const AppState = {
+            currentUser: null,
+            currentAdmin: null,
+            currentTicket: null,
+            users: JSON.parse(localStorage.getItem('spectra_users')) || [],
+            tickets: JSON.parse(localStorage.getItem('spectra_tickets')) || [],
+            messages: JSON.parse(localStorage.getItem('spectra_messages')) || [],
+            adminEmail: "SpectraProCorp@proton.me",
+            adminPassword: "SpectraCorporation"
         };
 
-        // Initialiser l'application
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            App.init();
+            checkAuth();
+            setupEventListeners();
         });
 
-        // Exposer App globalement
-        window.App = App;
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Mobile Menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mainNav.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                        ? '<i class="fas fa-times"></i>' 
+                        : '<i class="fas fa-bars"></i>';
+                });
+            }
+            
+            // Close mobile menu on link click
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('active');
+                    if (mobileMenuBtn) {
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            });
+
+            // Accept/Reject buttons
+            document.getElementById('acceptBtn')?.addEventListener('click', acceptTicket);
+            document.getElementById('rejectBtn')?.addEventListener('click', rejectTicket);
+        }
+
+        // Check Authentication
+        function checkAuth() {
+            const savedUser = localStorage.getItem('spectra_current_user');
+            const savedAdmin = localStorage.getItem('spectra_current_admin');
+            
+            if (savedUser) {
+                AppState.currentUser = JSON.parse(savedUser);
+                showDevDashboard();
+            }
+            
+            if (savedAdmin) {
+                AppState.currentAdmin = JSON.parse(savedAdmin);
+                showAdminPanel();
+            }
+        }
+
+        // Switch between auth tabs
+        function switchAuthTab(tabId) {
+            // Update tabs
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update forms
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Switch between admin tabs
+        function switchAdminTab(tabId) {
+            // Update tabs
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.admin-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Show page
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('nav a').forEach(link => {
+                link.style.fontWeight = 'normal';
+            });
+            event.target.style.fontWeight = 'bold';
+            
+            // Close mobile menu
+            const mainNav = document.getElementById('mainNav');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            mainNav.classList.remove('active');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        }
+
+        // User Registration
+        function registerUser() {
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            
+            if (!email || !password) {
+                alert('Veuillez remplir tous les champs !');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Le mot de passe doit faire au moins 6 caractères !');
+                return;
+            }
+            
+            // Check if user already exists
+            if (AppState.users.find(u => u.email === email)) {
+                alert('Cet email est déjà utilisé !');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                email: email,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+            
+            AppState.users.push(newUser);
+            localStorage.setItem('spectra_users', JSON.stringify(AppState.users));
+            
+            // Auto login
+            AppState.currentUser = newUser;
+            localStorage.setItem('spectra_current_user', JSON.stringify(newUser));
+            
+            // Show dashboard
+            showDevDashboard();
+            
+            alert('Compte créé avec succès ! Bienvenue !');
+        }
+
+        // User Login
+        function loginUser() {
+            const email = document.getElementById('devEmail').value.trim();
+            const password = document.getElementById('devPassword').value;
+            
+            // Find user
+            const user = AppState.users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                AppState.currentUser = user;
+                localStorage.setItem('spectra_current_user', JSON.stringify(user));
+                
+                showDevDashboard();
+                
+                alert('Connexion réussie !');
+            } else {
+                alert('Email ou mot de passe incorrect !');
+            }
+        }
+
+        // Admin Login
+        function loginAdmin() {
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value;
+            
+            // Check admin credentials
+            if (email === AppState.adminEmail && password === AppState.adminPassword) {
+                const adminUser = {
+                    id: 1,
+                    email: email,
+                    name: "Admin Spectra Corp",
+                    loggedInAt: new Date().toISOString()
+                };
+                
+                AppState.currentAdmin = adminUser;
+                localStorage.setItem('spectra_current_admin', JSON.stringify(adminUser));
+                
+                showAdminPanel();
+                
+                alert('Connexion admin réussie !');
+            } else {
+                alert('Identifiants admin incorrects !');
+            }
+        }
+
+        // Show Dev Dashboard
+        function showDevDashboard() {
+            document.getElementById('devAuthSection').style.display = 'none';
+            document.getElementById('devDashboard').style.display = 'block';
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('currentUserName').textContent = AppState.currentUser.email;
+            
+            loadUserTickets();
+        }
+
+        // Show Admin Panel
+        function showAdminPanel() {
+            document.getElementById('adminAuthSection').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            document.getElementById('adminName').textContent = AppState.currentAdmin.email;
+            
+            loadAdminTickets();
+        }
+
+        // Logout User
+        function logoutUser() {
+            AppState.currentUser = null;
+            localStorage.removeItem('spectra_current_user');
+            
+            document.getElementById('devAuthSection').style.display = 'flex';
+            document.getElementById('devDashboard').style.display = 'none';
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+            
+            // Reset forms
+            document.getElementById('devEmail').value = '';
+            document.getElementById('devPassword').value = '';
+            
+            alert('Déconnexion réussie !');
+        }
+
+        // Logout Admin
+        function logoutAdmin() {
+            AppState.currentAdmin = null;
+            localStorage.removeItem('spectra_current_admin');
+            
+            document.getElementById('adminAuthSection').style.display = 'flex';
+            document.getElementById('adminPanel').style.display = 'none';
+            
+            // Reset form
+            document.getElementById('adminEmail').value = '';
+            document.getElementById('adminPassword').value = '';
+            
+            alert('Déconnexion admin réussie !');
+        }
+
+        // Show New Ticket Form
+        function showNewTicketForm() {
+            document.getElementById('newTicketForm').style.display = 'block';
+            document.getElementById('ticketReason').focus();
+        }
+
+        // Hide New Ticket Form
+        function hideNewTicketForm() {
+            document.getElementById('newTicketForm').style.display = 'none';
+            document.getElementById('ticketReason').value = '';
+        }
+
+        // Create Ticket
+        function createTicket() {
+            const reason = document.getElementById('ticketReason').value.trim();
+            
+            if (!reason) {
+                alert('Veuillez décrire la raison de votre demande !');
+                return;
+            }
+            
+            // Create new ticket
+            const newTicket = {
+                id: Date.now(),
+                userId: AppState.currentUser.id,
+                userEmail: AppState.currentUser.email,
+                reason: reason,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            AppState.tickets.push(newTicket);
+            localStorage.setItem('spectra_tickets', JSON.stringify(AppState.tickets));
+            
+            // Add welcome message from admin
+            const welcomeMessage = {
+                id: Date.now(),
+                ticketId: newTicket.id,
+                sender: 'admin',
+                senderName: 'Admin Spectra Corp',
+                content: 'Bonjour ! Nous avons bien reçu votre demande de recrutement. Un administrateur va examiner votre candidature prochainement.',
+                createdAt: new Date().toISOString()
+            };
+            
+            AppState.messages.push(welcomeMessage);
+            localStorage.setItem('spectra_messages', JSON.stringify(AppState.messages));
+            
+            // Reset form and update UI
+            hideNewTicketForm();
+            loadUserTickets();
+            
+            alert('Ticket créé avec succès ! Un administrateur va le traiter prochainement.');
+        }
+
+        // Load User Tickets
+        function loadUserTickets() {
+            const userTicketsList = document.getElementById('userTicketsList');
+            const userTickets = AppState.tickets.filter(t => t.userId === AppState.currentUser.id);
+            
+            if (userTickets.length === 0) {
+                userTicketsList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #aaa;">
+                        <i class="fas fa-ticket-alt" style="font-size: 3rem; margin-bottom: 20px; color: var(--accent);"></i>
+                        <h4>Aucun ticket pour le moment</h4>
+                        <p>Créez votre premier ticket pour commencer le processus de recrutement</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort by date (newest first)
+            userTickets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            userTicketsList.innerHTML = '';
+            userTickets.forEach(ticket => {
+                const statusClass = getStatusClass(ticket.status);
+                const statusText = getStatusText(ticket.status);
+                
+                const ticketElement = document.createElement('div');
+                ticketElement.className = 'ticket-item';
+                ticketElement.innerHTML = `
+                    <div class="ticket-header">
+                        <div class="ticket-reason">${ticket.reason.substring(0, 50)}${ticket.reason.length > 50 ? '...' : ''}</div>
+                        <div class="ticket-date">${new Date(ticket.createdAt).toLocaleDateString('fr-FR')}</div>
+                    </div>
+                    <div class="ticket-status ${statusClass}">${statusText}</div>
+                `;
+                
+                ticketElement.addEventListener('click', () => {
+                    openUserChat(ticket);
+                });
+                
+                userTicketsList.appendChild(ticketElement);
+            });
+        }
+
+        // Load Admin Tickets
+        function loadAdminTickets() {
+            const adminTicketsList = document.getElementById('adminTicketsList');
+            const ticketCount = document.getElementById('ticketCount');
+            
+            if (AppState.tickets.length === 0) {
+                adminTicketsList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #aaa;">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 20px; color: var(--accent);"></i>
+                        <h4>Aucun ticket à traiter</h4>
+                        <p>Attendez que les utilisateurs créent des tickets</p>
+                    </div>
+                `;
+                ticketCount.textContent = '0';
+                return;
+            }
+            
+            // Sort by date (newest first)
+            const sortedTickets = [...AppState.tickets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            ticketCount.textContent = sortedTickets.length;
+            adminTicketsList.innerHTML = '';
+            
+            sortedTickets.forEach(ticket => {
+                const statusClass = getStatusClass(ticket.status);
+                const statusText = getStatusText(ticket.status);
+                
+                const ticketElement = document.createElement('div');
+                ticketElement.className = 'ticket-item';
+                ticketElement.innerHTML = `
+                    <div class="ticket-header">
+                        <div class="ticket-reason">${ticket.reason.substring(0, 50)}${ticket.reason.length > 50 ? '...' : ''}</div>
+                        <div class="ticket-date">${new Date(ticket.createdAt).toLocaleDateString('fr-FR')}</div>
+                    </div>
+                    <div style="color: #aaa; font-size: 0.9rem; margin: 5px 0;">
+                        <i class="fas fa-envelope"></i> ${ticket.userEmail}
+                    </div>
+                    <div class="ticket-status ${statusClass}">${statusText}</div>
+                `;
+                
+                ticketElement.addEventListener('click', () => {
+                    openAdminChat(ticket);
+                });
+                
+                adminTicketsList.appendChild(ticketElement);
+            });
+        }
+
+        // Open User Chat
+        function openUserChat(ticket) {
+            AppState.currentTicket = ticket;
+            
+            // Update modal info
+            document.getElementById('modalTicketInfo').textContent = `Ticket #${ticket.id} - ${ticket.reason.substring(0, 50)}${ticket.reason.length > 50 ? '...' : ''}`;
+            document.getElementById('modalTicketStatus').textContent = getStatusText(ticket.status);
+            document.getElementById('modalTicketStatus').className = `ticket-status ${getStatusClass(ticket.status)}`;
+            
+            // Load messages
+            loadMessages(ticket.id, 'modalMessageContainer');
+            
+            // Show modal
+            document.getElementById('chatModal').style.display = 'flex';
+        }
+
+        // Open Admin Chat
+        function openAdminChat(ticket) {
+            AppState.currentTicket = ticket;
+            
+            // Update chat info
+            document.getElementById('chatTicketInfo').textContent = `Ticket #${ticket.id} - ${ticket.userEmail}`;
+            document.getElementById('chatTicketStatus').textContent = getStatusText(ticket.status);
+            document.getElementById('chatTicketStatus').className = `ticket-status ${getStatusClass(ticket.status)}`;
+            
+            // Load messages
+            loadMessages(ticket.id, 'messageContainer');
+            
+            // Show chat container
+            document.getElementById('chatInfo').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'block';
+            
+            // Switch to chat tab
+            switchAdminTab('chatTab');
+            
+            // Focus on message input
+            document.getElementById('messageInput').focus();
+        }
+
+        // Load Messages
+        function loadMessages(ticketId, containerId) {
+            const container = document.getElementById(containerId);
+            const ticketMessages = AppState.messages.filter(m => m.ticketId === ticketId);
+            
+            container.innerHTML = '';
+            
+            if (ticketMessages.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #aaa; padding: 20px;">Aucun message pour le moment. Commencez la conversation !</p>';
+                return;
+            }
+            
+            // Sort by date (oldest first for chat)
+            ticketMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            
+            ticketMessages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `message ${message.sender === 'admin' ? 'admin' : 'user'}`;
+                messageElement.innerHTML = `
+                    <div class="message-header">
+                        <span>${message.sender === 'admin' ? 'Admin Spectra Corp' : message.senderName}</span>
+                        <span>${new Date(message.createdAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                    <div class="message-content">${message.content}</div>
+                `;
+                container.appendChild(messageElement);
+            });
+            
+            // Scroll to bottom
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Send Message (Admin)
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const content = input.value.trim();
+            
+            if (!content || !AppState.currentTicket) return;
+            
+            const message = {
+                id: Date.now(),
+                ticketId: AppState.currentTicket.id,
+                sender: 'admin',
+                senderName: 'Admin Spectra Corp',
+                content: content,
+                createdAt: new Date().toISOString()
+            };
+            
+            AppState.messages.push(message);
+            localStorage.setItem('spectra_messages', JSON.stringify(AppState.messages));
+            
+            // Update ticket timestamp
+            const ticketIndex = AppState.tickets.findIndex(t => t.id === AppState.currentTicket.id);
+            if (ticketIndex !== -1) {
+                AppState.tickets[ticketIndex].updatedAt = new Date().toISOString();
+                localStorage.setItem('spectra_tickets', JSON.stringify(AppState.tickets));
+            }
+            
+            // Reload messages
+            loadMessages(AppState.currentTicket.id, 'messageContainer');
+            
+            // Clear input
+            input.value = '';
+            input.focus();
+        }
+
+        // Send Message (User)
+        function sendUserMessage() {
+            const input = document.getElementById('modalMessageInput');
+            const content = input.value.trim();
+            
+            if (!content || !AppState.currentTicket) return;
+            
+            const message = {
+                id: Date.now(),
+                ticketId: AppState.currentTicket.id,
+                sender: 'user',
+                senderName: AppState.currentUser.email,
+                content: content,
+                createdAt: new Date().toISOString()
+            };
+            
+            AppState.messages.push(message);
+            localStorage.setItem('spectra_messages', JSON.stringify(AppState.messages));
+            
+            // Update ticket timestamp
+            const ticketIndex = AppState.tickets.findIndex(t => t.id === AppState.currentTicket.id);
+            if (ticketIndex !== -1) {
+                AppState.tickets[ticketIndex].updatedAt = new Date().toISOString();
+                localStorage.setItem('spectra_tickets', JSON.stringify(AppState.tickets));
+            }
+            
+            // Reload messages
+            loadMessages(AppState.currentTicket.id, 'modalMessageContainer');
+            
+            // Clear input
+            input.value = '';
+            input.focus();
+        }
+
+        // Accept Ticket
+        function acceptTicket() {
+            if (!AppState.currentTicket) return;
+            
+            const ticketIndex = AppState.tickets.findIndex(t => t.id === AppState.currentTicket.id);
+            if (ticketIndex === -1) return;
+            
+            // Update status
+            AppState.tickets[ticketIndex].status = 'accepted';
+            localStorage.setItem('spectra_tickets', JSON.stringify(AppState.tickets));
+            
+            // Add system message
+            const systemMessage = {
+                id: Date.now(),
+                ticketId: AppState.currentTicket.id,
+                sender: 'system',
+                senderName: 'Système',
+                content: '✅ Ticket ACCEPTÉ par l\'administrateur. Félicitations !',
+                createdAt: new Date().toISOString()
+            };
+            
+            AppState.messages.push(systemMessage);
+            localStorage.setItem('spectra_messages', JSON.stringify(AppState.messages));
+            
+            // Update UI
+            document.getElementById('chatTicketStatus').textContent = 'Accepté';
+            document.getElementById('chatTicketStatus').className = 'ticket-status status-accepted';
+            
+            // Reload messages and tickets
+            loadMessages(AppState.currentTicket.id, 'messageContainer');
+            loadAdminTickets();
+            
+            alert('Ticket accepté avec succès !');
+        }
+
+        // Reject Ticket
+        function rejectTicket() {
+            if (!AppState.currentTicket) return;
+            
+            const ticketIndex = AppState.tickets.findIndex(t => t.id === AppState.currentTicket.id);
+            if (ticketIndex === -1) return;
+            
+            // Update status
+            AppState.tickets[ticketIndex].status = 'rejected';
+            localStorage.setItem('spectra_tickets', JSON.stringify(AppState.tickets));
+            
+            // Add system message
+            const systemMessage = {
+                id: Date.now(),
+                ticketId: AppState.currentTicket.id,
+                sender: 'system',
+                senderName: 'Système',
+                content: '❌ Ticket REFUSÉ par l\'administrateur.',
+                createdAt: new Date().toISOString()
+            };
+            
+            AppState.messages.push(systemMessage);
+            localStorage.setItem('spectra_messages', JSON.stringify(AppState.messages));
+            
+            // Update UI
+            document.getElementById('chatTicketStatus').textContent = 'Refusé';
+            document.getElementById('chatTicketStatus').className = 'ticket-status status-rejected';
+            
+            // Reload messages and tickets
+            loadMessages(AppState.currentTicket.id, 'messageContainer');
+            loadAdminTickets();
+            
+            alert('Ticket refusé avec succès !');
+        }
+
+        // Close Chat Modal
+        function closeChatModal() {
+            document.getElementById('chatModal').style.display = 'none';
+            AppState.currentTicket = null;
+        }
+
+        // Helper functions
+        function getStatusClass(status) {
+            switch(status) {
+                case 'pending': return 'status-pending';
+                case 'inprogress': return 'status-inprogress';
+                case 'accepted': return 'status-accepted';
+                case 'rejected': return 'status-rejected';
+                default: return 'status-pending';
+            }
+        }
+
+        function getStatusText(status) {
+            switch(status) {
+                case 'pending': return 'En attente';
+                case 'inprogress': return 'En traitement';
+                case 'accepted': return 'Accepté';
+                case 'rejected': return 'Refusé';
+                default: return 'En attente';
+            }
+        }
+
+        // Global functions for onclick events
+        window.showPage = showPage;
+        window.switchAuthTab = switchAuthTab;
+        window.switchAdminTab = switchAdminTab;
+        window.loginUser = loginUser;
+        window.registerUser = registerUser;
+        window.loginAdmin = loginAdmin;
+        window.logoutAdmin = logoutAdmin;
+        window.showNewTicketForm = showNewTicketForm;
+        window.hideNewTicketForm = hideNewTicketForm;
+        window.createTicket = createTicket;
+        window.sendMessage = sendMessage;
+        window.sendUserMessage = sendUserMessage;
+        window.closeChatModal = closeChatModal;
+        window.acceptTicket = acceptTicket;
+        window.rejectTicket = rejectTicket;
+
+        // Add logout button handler
+        document.getElementById('logoutBtn')?.addEventListener('click', logoutUser);
     </script>
 </body>
 </html>
