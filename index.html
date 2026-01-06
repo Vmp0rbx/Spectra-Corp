@@ -924,6 +924,9 @@
             // Accept/Reject buttons
             document.getElementById('acceptBtn')?.addEventListener('click', acceptTicket);
             document.getElementById('rejectBtn')?.addEventListener('click', rejectTicket);
+
+            // Logout button
+            document.getElementById('logoutBtn')?.addEventListener('click', logoutUser);
         }
 
         // Check Authentication
@@ -981,12 +984,6 @@
             
             // Show selected page
             document.getElementById(pageId).classList.add('active');
-            
-            // Update navigation
-            document.querySelectorAll('nav a').forEach(link => {
-                link.style.fontWeight = 'normal';
-            });
-            event.target.style.fontWeight = 'bold';
             
             // Close mobile menu
             const mainNav = document.getElementById('mainNav');
@@ -1286,7 +1283,7 @@
             AppState.currentTicket = ticket;
             
             // Update modal info
-            document.getElementById('modalTicketInfo').textContent = `Ticket #${ticket.id} - ${ticket.reason.substring(0, 50)}${ticket.reason.length > 50 ? '...' : ''}`;
+            document.getElementById('modalTicketInfo').textContent = `Ticket #${ticket.id}`;
             document.getElementById('modalTicketStatus').textContent = getStatusText(ticket.status);
             document.getElementById('modalTicketStatus').className = `ticket-status ${getStatusClass(ticket.status)}`;
             
@@ -1295,6 +1292,9 @@
             
             // Show modal
             document.getElementById('chatModal').style.display = 'flex';
+            
+            // Focus on message input
+            document.getElementById('modalMessageInput').focus();
         }
 
         // Open Admin Chat
@@ -1340,7 +1340,7 @@
                 messageElement.className = `message ${message.sender === 'admin' ? 'admin' : 'user'}`;
                 messageElement.innerHTML = `
                     <div class="message-header">
-                        <span>${message.sender === 'admin' ? 'Admin Spectra Corp' : message.senderName}</span>
+                        <span>${message.sender === 'admin' ? 'Admin Spectra Corp' : 'Vous'}</span>
                         <span>${new Date(message.createdAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
                     <div class="message-content">${message.content}</div>
@@ -1533,9 +1533,6 @@
         window.closeChatModal = closeChatModal;
         window.acceptTicket = acceptTicket;
         window.rejectTicket = rejectTicket;
-
-        // Add logout button handler
-        document.getElementById('logoutBtn')?.addEventListener('click', logoutUser);
     </script>
 </body>
 </html>
